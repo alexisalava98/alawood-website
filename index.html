@@ -444,6 +444,51 @@
       object-fit: cover;
       display: block;
     }
+
+    /* ── Language Toggle ──────────────────────── */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      padding: 0.28rem 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.38);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      transition: color 0.2s, background 0.2s;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .lang-btn.active {
+      color: #fff;
+      background: rgba(212,160,23,0.22);
+    }
+    .lang-btn:hover:not(.active) {
+      color: rgba(255,255,255,0.72);
+    }
+    .lang-sep {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.15);
+      flex-shrink: 0;
+    }
+
+    /* ── i18n transition ─────────────────────── */
+    body.lang-transition {
+      opacity: 0.82;
+      transition: opacity 0.15s ease;
+    }
   </style>
 </head>
 <body>
@@ -468,12 +513,18 @@
 
       <!-- Desktop nav -->
       <div class="hidden md:flex items-center gap-8">
-        <a href="#nosotros"  class="nav-link">Nosotros</a>
-        <a href="#fabrica"   class="nav-link">Fábrica</a>
-        <a href="#productos" class="nav-link">Productos</a>
-        <a href="#historia"  class="nav-link">Historia</a>
-        <a href="#contacto"  class="nav-link">Contacto</a>
-        <a href="#contacto"  class="btn-cta">Cotizar</a>
+        <a href="#nosotros"  class="nav-link" data-i18n="nav.nosotros">Nosotros</a>
+        <a href="#fabrica"   class="nav-link" data-i18n="nav.fabrica">Fábrica</a>
+        <a href="#productos" class="nav-link" data-i18n="nav.productos">Productos</a>
+        <a href="#historia"  class="nav-link" data-i18n="nav.historia">Historia</a>
+        <a href="#contacto"  class="nav-link" data-i18n="nav.contacto">Contacto</a>
+        <!-- Language toggle -->
+        <div class="lang-toggle" id="lang-toggle-desktop">
+          <button class="lang-btn active" id="btn-es-desktop" onclick="setLanguage('es')">🇪🇨 ES</button>
+          <div class="lang-sep"></div>
+          <button class="lang-btn" id="btn-en-desktop" onclick="setLanguage('en')">🇺🇸 EN</button>
+        </div>
+        <a href="#contacto" class="btn-cta" data-i18n="nav.cotizar">Cotizar</a>
       </div>
 
       <!-- Hamburger -->
@@ -486,12 +537,18 @@
   <!-- Mobile menu -->
   <div id="mobile-menu" class="md:hidden bg-forest">
     <div class="px-6 py-4 flex flex-col gap-4">
-      <a href="#nosotros"  class="nav-link" onclick="closeMobile()">Nosotros</a>
-      <a href="#fabrica"   class="nav-link" onclick="closeMobile()">Fábrica</a>
-      <a href="#productos" class="nav-link" onclick="closeMobile()">Productos</a>
-      <a href="#historia"  class="nav-link" onclick="closeMobile()">Historia</a>
-      <a href="#contacto"  class="nav-link" onclick="closeMobile()">Contacto</a>
-      <a href="#contacto"  class="btn-cta inline-block text-center" onclick="closeMobile()">Cotizar</a>
+      <a href="#nosotros"  class="nav-link" data-i18n="nav.nosotros" onclick="closeMobile()">Nosotros</a>
+      <a href="#fabrica"   class="nav-link" data-i18n="nav.fabrica"   onclick="closeMobile()">Fábrica</a>
+      <a href="#productos" class="nav-link" data-i18n="nav.productos" onclick="closeMobile()">Productos</a>
+      <a href="#historia"  class="nav-link" data-i18n="nav.historia"  onclick="closeMobile()">Historia</a>
+      <a href="#contacto"  class="nav-link" data-i18n="nav.contacto"  onclick="closeMobile()">Contacto</a>
+      <!-- Mobile language toggle -->
+      <div class="lang-toggle" style="align-self:flex-start;" id="lang-toggle-mobile">
+        <button class="lang-btn active" id="btn-es-mobile" onclick="setLanguage('es')">🇪🇨 ES</button>
+        <div class="lang-sep"></div>
+        <button class="lang-btn" id="btn-en-mobile" onclick="setLanguage('en')">🇺🇸 EN</button>
+      </div>
+      <a href="#contacto" class="btn-cta inline-block text-center" data-i18n="nav.cotizar" onclick="closeMobile()">Cotizar</a>
     </div>
   </div>
 </nav>
@@ -506,18 +563,19 @@
       <!-- Left: copy -->
       <div class="hero-parallax">
         <div class="reveal">
-          <span class="inline-block text-gold text-xs font-bold tracking-widest uppercase mb-4">Ecuador · Guayas · Balsa Premium</span>
-          <h1 style="font-family:'Playfair Display',serif; font-size:clamp(2.4rem,5vw,3.8rem); font-weight:700; color:#fff; line-height:1.15; margin-bottom:1.25rem;">
+          <span class="inline-block text-gold text-xs font-bold tracking-widest uppercase mb-4" data-i18n="hero.badge">Ecuador · Guayas · Balsa Premium</span>
+          <h1 data-i18n-html="hero.h1" style="font-family:'Playfair Display',serif; font-size:clamp(2.4rem,5vw,3.8rem); font-weight:700; color:#fff; line-height:1.15; margin-bottom:1.25rem;">
             La Madera Más<br />
             <em style="color:#D4A017;">Liviana</em> del Mundo,<br />
             Desde Ecuador
           </h1>
-          <p class="text-white/70 text-lg leading-relaxed mb-8" style="max-width:500px;">
+          <p class="text-white/70 text-lg leading-relaxed mb-8" data-i18n="hero.subtitle" style="max-width:500px;">
             27 años de experiencia. 70 colaboradores. Calidad certificada en balsa de alta densidad.
           </p>
           <div class="flex flex-wrap gap-4">
-            <a href="#productos" class="btn-cta text-base px-8 py-3">Ver Productos</a>
+            <a href="#productos" class="btn-cta text-base px-8 py-3" data-i18n="hero.cta1">Ver Productos</a>
             <a href="#fabrica"
+               data-i18n="hero.cta2"
                style="display:inline-block; padding:0.75rem 2rem; border:2px solid rgba(255,255,255,0.55); border-radius:6px; color:#fff; font-size:0.95rem; font-weight:600; transition:border-color 0.25s, background 0.25s; text-decoration:none;"
                onmouseover="this.style.borderColor='#D4A017';this.style.color='#D4A017';"
                onmouseout="this.style.borderColor='rgba(255,255,255,0.55)';this.style.color='#fff';">
@@ -530,15 +588,15 @@
         <div class="grid grid-cols-3 gap-6 mt-16 reveal reveal-delay-2">
           <div class="text-center">
             <div class="stat-number" data-target="27" data-suffix="+">0</div>
-            <div class="text-white/60 text-sm mt-1 font-medium">Años</div>
+            <div class="text-white/60 text-sm mt-1 font-medium" data-i18n="hero.stat1">Años</div>
           </div>
           <div class="text-center">
             <div class="stat-number" data-target="70" data-suffix="+">0</div>
-            <div class="text-white/60 text-sm mt-1 font-medium">Colaboradores</div>
+            <div class="text-white/60 text-sm mt-1 font-medium" data-i18n="hero.stat2">Colaboradores</div>
           </div>
           <div class="text-center">
             <div class="stat-number" data-target="100" data-suffix="%">0</div>
-            <div class="text-white/60 text-sm mt-1 font-medium">Balsa Ecuatoriana</div>
+            <div class="text-white/60 text-sm mt-1 font-medium" data-i18n="hero.stat3">Balsa Ecuatoriana</div>
           </div>
         </div>
       </div>
@@ -571,15 +629,15 @@
 
       <!-- Text -->
       <div class="reveal">
-        <span class="section-tag">Quiénes Somos</span>
+        <span class="section-tag" data-i18n="about.tag">Quiénes Somos</span>
         <div class="section-divider"></div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;margin-bottom:1.5rem;">
+        <h2 data-i18n="about.h2" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;margin-bottom:1.5rem;">
           ¿Quiénes Somos?
         </h2>
-        <p class="text-dark/75 leading-relaxed text-lg mb-6">
+        <p class="text-dark/75 leading-relaxed text-lg mb-6" data-i18n-html="about.p1">
           Alawood S.A. fue fundada en 2015 con sede en Daule, Guayas. Somos especialistas en el aserrado y conservación de madera de balsa, una de las maderas más valoradas del mundo por su <strong class="text-forest-mid">resistencia excepcional en relación a su peso</strong>.
         </p>
-        <p class="text-dark/65 leading-relaxed mb-10">
+        <p class="text-dark/65 leading-relaxed mb-10" data-i18n="about.p2">
           Operamos con más de 70 colaboradores comprometidos con la calidad y la sostenibilidad, llevando lo mejor de Ecuador al mundo.
         </p>
 
@@ -592,8 +650,8 @@
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01z"/>
               </svg>
             </div>
-            <h4 class="font-bold text-forest text-sm mb-1">Calidad</h4>
-            <p class="text-xs text-dark/60">Estándares internacionales en cada proceso</p>
+            <h4 class="font-bold text-forest text-sm mb-1" data-i18n="about.val1.title">Calidad</h4>
+            <p class="text-xs text-dark/60" data-i18n="about.val1.desc">Estándares internacionales en cada proceso</p>
           </div>
           <!-- Sostenibilidad -->
           <div class="value-card reveal reveal-delay-2">
@@ -602,8 +660,8 @@
                 <path d="M17 8C8 10 5.9 16.17 3.82 19.82a2.93 2.93 0 002.18.18c1.5-5.5 7-7 7-7-1 1.5-2.5 6-2.5 6A14 14 0 0021 12.93C21 9.6 19.5 8 17 8z"/>
               </svg>
             </div>
-            <h4 class="font-bold text-forest text-sm mb-1">Sostenibilidad</h4>
-            <p class="text-xs text-dark/60">Comprometidos con el medio ambiente</p>
+            <h4 class="font-bold text-forest text-sm mb-1" data-i18n="about.val2.title">Sostenibilidad</h4>
+            <p class="text-xs text-dark/60" data-i18n="about.val2.desc">Comprometidos con el medio ambiente</p>
           </div>
           <!-- Experiencia -->
           <div class="value-card reveal reveal-delay-3">
@@ -613,8 +671,8 @@
                 <polyline points="12 6 12 12 16 14"/>
               </svg>
             </div>
-            <h4 class="font-bold text-forest text-sm mb-1">Experiencia</h4>
-            <p class="text-xs text-dark/60">27 años en la industria maderera</p>
+            <h4 class="font-bold text-forest text-sm mb-1" data-i18n="about.val3.title">Experiencia</h4>
+            <p class="text-xs text-dark/60" data-i18n="about.val3.desc">27 años en la industria maderera</p>
           </div>
           <!-- Innovación -->
           <div class="value-card reveal reveal-delay-4">
@@ -623,8 +681,8 @@
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
               </svg>
             </div>
-            <h4 class="font-bold text-forest text-sm mb-1">Innovación</h4>
-            <p class="text-xs text-dark/60">Tecnología de punta en cada etapa</p>
+            <h4 class="font-bold text-forest text-sm mb-1" data-i18n="about.val4.title">Innovación</h4>
+            <p class="text-xs text-dark/60" data-i18n="about.val4.desc">Tecnología de punta en cada etapa</p>
           </div>
         </div>
       </div>
@@ -649,11 +707,11 @@
 <section id="beneficios" class="py-24" style="background:#1B4332;">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <span style="color:#D4A017;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;">Material Premium</span>
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;margin-top:0.5rem;line-height:1.2;">
+      <span data-i18n="benefits.supertitle" style="color:#D4A017;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;">Material Premium</span>
+      <h2 data-i18n="benefits.h2" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;margin-top:0.5rem;line-height:1.2;">
         ¿Por qué Madera de Balsa?
       </h2>
-      <p class="text-white/60 mt-4 max-w-xl mx-auto text-lg">
+      <p class="text-white/60 mt-4 max-w-xl mx-auto text-lg" data-i18n="benefits.subtitle">
         Propiedades únicas que la convierten en el material preferido de las industrias más exigentes del mundo.
       </p>
     </div>
@@ -668,8 +726,8 @@
             <polyline points="9 22 9 12 15 12 15 22"/>
           </svg>
         </div>
-        <h3 class="text-white font-bold text-lg mb-2">Ultra Liviana</h3>
-        <p class="text-white/60 text-sm leading-relaxed">La madera más liviana del mundo, ideal para aplicaciones aeroespaciales, náuticas y deportivas.</p>
+        <h3 class="text-white font-bold text-lg mb-2" data-i18n="benefits.card1.title">Ultra Liviana</h3>
+        <p class="text-white/60 text-sm leading-relaxed" data-i18n="benefits.card1.desc">La madera más liviana del mundo, ideal para aplicaciones aeroespaciales, náuticas y deportivas.</p>
       </div>
 
       <!-- 2 -->
@@ -680,8 +738,8 @@
             <path d="M20 16.58A5 5 0 0018 7h-1.26A8 8 0 104 15.25"/>
           </svg>
         </div>
-        <h3 class="text-white font-bold text-lg mb-2">Alta Resistencia</h3>
-        <p class="text-white/60 text-sm leading-relaxed">Relación resistencia/peso superior a cualquier otra madera tropical del planeta.</p>
+        <h3 class="text-white font-bold text-lg mb-2" data-i18n="benefits.card2.title">Alta Resistencia</h3>
+        <p class="text-white/60 text-sm leading-relaxed" data-i18n="benefits.card2.desc">Relación resistencia/peso superior a cualquier otra madera tropical del planeta.</p>
       </div>
 
       <!-- 3 -->
@@ -691,8 +749,8 @@
             <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
           </svg>
         </div>
-        <h3 class="text-white font-bold text-lg mb-2">Excelente Aislante</h3>
-        <p class="text-white/60 text-sm leading-relaxed">Propiedades térmicas y acústicas excepcionales para aplicaciones de construcción e industria.</p>
+        <h3 class="text-white font-bold text-lg mb-2" data-i18n="benefits.card3.title">Excelente Aislante</h3>
+        <p class="text-white/60 text-sm leading-relaxed" data-i18n="benefits.card3.desc">Propiedades térmicas y acústicas excepcionales para aplicaciones de construcción e industria.</p>
       </div>
 
       <!-- 4 -->
@@ -702,8 +760,8 @@
             <path d="M17 8C8 10 5.9 16.17 3.82 19.82a2.93 2.93 0 002.18.18c1.5-5.5 7-7 7-7-1 1.5-2.5 6-2.5 6A14 14 0 0021 12.93C21 9.6 19.5 8 17 8z"/>
           </svg>
         </div>
-        <h3 class="text-white font-bold text-lg mb-2">100% Renovable</h3>
-        <p class="text-white/60 text-sm leading-relaxed">Árbol de rápido crecimiento, altamente sostenible y con huella de carbono reducida.</p>
+        <h3 class="text-white font-bold text-lg mb-2" data-i18n="benefits.card4.title">100% Renovable</h3>
+        <p class="text-white/60 text-sm leading-relaxed" data-i18n="benefits.card4.desc">Árbol de rápido crecimiento, altamente sostenible y con huella de carbono reducida.</p>
       </div>
 
       <!-- 5 -->
@@ -713,8 +771,8 @@
             <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
           </svg>
         </div>
-        <h3 class="text-white font-bold text-lg mb-2">Versátil</h3>
-        <p class="text-white/60 text-sm leading-relaxed">Aplicaciones en construcción, deporte, industria aeronáutica, naval y arte.</p>
+        <h3 class="text-white font-bold text-lg mb-2" data-i18n="benefits.card5.title">Versátil</h3>
+        <p class="text-white/60 text-sm leading-relaxed" data-i18n="benefits.card5.desc">Aplicaciones en construcción, deporte, industria aeronáutica, naval y arte.</p>
       </div>
 
       <!-- 6 -->
@@ -725,8 +783,8 @@
             <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
           </svg>
         </div>
-        <h3 class="text-white font-bold text-lg mb-2">Origen Ecuatoriano</h3>
-        <p class="text-white/60 text-sm leading-relaxed">Ecuador, el mayor productor de balsa del mundo. Calidad desde la fuente.</p>
+        <h3 class="text-white font-bold text-lg mb-2" data-i18n="benefits.card6.title">Origen Ecuatoriano</h3>
+        <p class="text-white/60 text-sm leading-relaxed" data-i18n="benefits.card6.desc">Ecuador, el mayor productor de balsa del mundo. Calidad desde la fuente.</p>
       </div>
 
     </div>
@@ -740,12 +798,12 @@
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
     <div class="text-center mb-14 reveal">
-      <span class="section-tag">Instalaciones</span>
+      <span class="section-tag" data-i18n="factory.tag">Instalaciones</span>
       <div class="section-divider mx-auto"></div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;margin-bottom:1rem;">
+      <h2 data-i18n="factory.h2" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;margin-bottom:1rem;">
         Nuestra Fábrica
       </h2>
-      <p class="text-dark/65 text-lg max-w-2xl mx-auto">
+      <p class="text-dark/65 text-lg max-w-2xl mx-auto" data-i18n="factory.subtitle">
         Instalaciones modernas con tecnología de punta en el corazón del Guayas
       </p>
     </div>
@@ -758,28 +816,28 @@
              alt="Patios de Secado"
              onerror="this.parentElement.style.minHeight='260px';this.parentElement.style.background='linear-gradient(135deg,#1B4332,#2D6A4F)';this.remove();" />
         <div class="factory-card-overlay">
-          <span class="text-white font-semibold text-sm">Patios de Secado</span>
+          <span class="text-white font-semibold text-sm" data-i18n="factory.area1">Patios de Secado</span>
         </div>
       </div>
 
       <div class="factory-card reveal reveal-delay-2" style="background:linear-gradient(135deg,#2D6A4F,#1B4332);min-height:260px;display:flex;align-items:center;justify-content:center;">
         <div class="factory-card-overlay" style="position:relative;inset:auto;background:none;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;height:260px;width:100%;">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-          <span class="text-white/70 text-sm mt-2">Sierras Industriales</span>
+          <span class="text-white/70 text-sm mt-2" data-i18n="factory.area2">Sierras Industriales</span>
         </div>
       </div>
 
       <div class="factory-card reveal reveal-delay-3" style="background:linear-gradient(135deg,#0D2B1F,#1B4332);min-height:260px;display:flex;align-items:center;justify-content:center;">
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:260px;width:100%;">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <span class="text-white/70 text-sm mt-2">Cepilladoras</span>
+          <span class="text-white/70 text-sm mt-2" data-i18n="factory.area3">Cepilladoras</span>
         </div>
       </div>
 
       <div class="factory-card reveal reveal-delay-4" style="background:linear-gradient(135deg,#1B4332,#D4A017 200%);min-height:260px;display:flex;align-items:center;justify-content:center;">
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:260px;width:100%;">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9 12l2 2 4-4"/></svg>
-          <span class="text-white/70 text-sm mt-2">Control de Calidad</span>
+          <span class="text-white/70 text-sm mt-2" data-i18n="factory.area4">Control de Calidad</span>
         </div>
       </div>
 
@@ -787,40 +845,40 @@
 
     <!-- Description -->
     <div class="max-w-3xl mx-auto text-center reveal mb-16">
-      <p class="text-dark/70 leading-relaxed text-lg">
+      <p class="text-dark/70 leading-relaxed text-lg" data-i18n-html="factory.desc">
         Contamos con amplios patios para recepción y secado de madera. Nuestra planta integra <strong class="text-forest">sierras, cepilladoras y encoladoras</strong> de última generación para producir bloques que cumplen con los más altos estándares internacionales.
       </p>
     </div>
 
     <!-- Timeline proceso -->
     <div class="reveal">
-      <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1B4332;text-align:center;margin-bottom:2.5rem;">
+      <h3 data-i18n="factory.process.title" style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1B4332;text-align:center;margin-bottom:2.5rem;">
         Proceso Productivo
       </h3>
       <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:flex-start;">
         <div class="process-step">
           <div class="process-num">1</div>
-          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Recepción</div>
+          <div data-i18n="factory.step1" style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Recepción</div>
         </div>
         <div class="process-step">
           <div class="process-num">2</div>
-          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Secado</div>
+          <div data-i18n="factory.step2" style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Secado</div>
         </div>
         <div class="process-step">
           <div class="process-num">3</div>
-          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Corte</div>
+          <div data-i18n="factory.step3" style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Corte</div>
         </div>
         <div class="process-step">
           <div class="process-num">4</div>
-          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Cepillado</div>
+          <div data-i18n="factory.step4" style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Cepillado</div>
         </div>
         <div class="process-step">
           <div class="process-num">5</div>
-          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Control de Calidad</div>
+          <div data-i18n="factory.step5" style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Control de Calidad</div>
         </div>
         <div class="process-step">
           <div class="process-num">6</div>
-          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Despacho</div>
+          <div data-i18n="factory.step6" style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Despacho</div>
         </div>
       </div>
     </div>
@@ -835,9 +893,9 @@
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
     <div class="text-center mb-14 reveal">
-      <span class="section-tag">Catálogo</span>
+      <span class="section-tag" data-i18n="products.tag">Catálogo</span>
       <div class="section-divider mx-auto"></div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;">
+      <h2 data-i18n="products.h2" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;">
         Nuestros Productos
       </h2>
     </div>
@@ -855,10 +913,10 @@
                onerror="this.parentElement.style.background='linear-gradient(135deg,#1B4332,#2D6A4F)';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.7);font-size:0.9rem;\'>[Foto: Bloques de Balsa]</div>';" />
         </div>
         <div class="p-7">
-          <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1B4332;margin-bottom:0.75rem;">
+          <h3 data-i18n="products.card1.title" style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1B4332;margin-bottom:0.75rem;">
             Bloques de Balsa
           </h3>
-          <p class="text-dark/65 text-sm leading-relaxed mb-5">
+          <p class="text-dark/65 text-sm leading-relaxed mb-5" data-i18n="products.card1.desc">
             Bloques elaborados con balsa de alta calidad que cumplen con los más exigentes estándares internacionales. Disponibles en múltiples dimensiones y densidades.
           </p>
           <div class="flex flex-wrap gap-2 mb-6">
@@ -866,7 +924,7 @@
             <span class="tag">#Construcción</span>
             <span class="tag">#Exportación</span>
           </div>
-          <a href="#contacto" class="btn-cta block text-center">Solicitar Cotización</a>
+          <a href="#contacto" class="btn-cta block text-center" data-i18n="products.cta">Solicitar Cotización</a>
         </div>
       </div>
 
@@ -881,10 +939,10 @@
                onerror="this.parentElement.style.background='linear-gradient(135deg,#2D6A4F,#D4A017)';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.7);font-size:0.9rem;\'>[Foto: Bloques de Yoga]</div>';" />
         </div>
         <div class="p-7">
-          <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1B4332;margin-bottom:0.75rem;">
+          <h3 data-i18n="products.card2.title" style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1B4332;margin-bottom:0.75rem;">
             Bloques para Yoga
           </h3>
-          <p class="text-dark/65 text-sm leading-relaxed mb-5">
+          <p class="text-dark/65 text-sm leading-relaxed mb-5" data-i18n="products.card2.desc">
             Bloques de yoga fabricados con balsa 100% natural. Ofrecen mayor altura, estabilidad y soporte para tu práctica, con el peso pluma que solo la balsa puede dar.
           </p>
           <div class="flex flex-wrap gap-2 mb-6">
@@ -892,7 +950,7 @@
             <span class="tag">#Deporte</span>
             <span class="tag">#Natural</span>
           </div>
-          <a href="#contacto" class="btn-cta block text-center">Solicitar Cotización</a>
+          <a href="#contacto" class="btn-cta block text-center" data-i18n="products.cta">Solicitar Cotización</a>
         </div>
       </div>
 
@@ -907,9 +965,9 @@
   <div class="max-w-5xl mx-auto px-6 lg:px-8">
 
     <div class="text-center mb-16 reveal">
-      <span class="section-tag">Trayectoria</span>
+      <span class="section-tag" data-i18n="history.tag">Trayectoria</span>
       <div class="section-divider mx-auto"></div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;">
+      <h2 data-i18n="history.h2" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;">
         Nuestra Historia
       </h2>
     </div>
@@ -920,8 +978,8 @@
       <div class="timeline-item grid md:grid-cols-2 gap-8 mb-14 reveal">
         <div class="md:text-right md:pr-12">
           <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#D4A017;line-height:1;">1996</div>
-          <h4 class="font-bold text-forest mt-1 mb-2">Los Comienzos</h4>
-          <p class="text-dark/65 text-sm leading-relaxed">Los fundadores inician actividades en la industria maderera del Ecuador, acumulando más de 27 años de experiencia y conocimiento del sector.</p>
+          <h4 class="font-bold text-forest mt-1 mb-2" data-i18n="history.e1.title">Los Comienzos</h4>
+          <p class="text-dark/65 text-sm leading-relaxed" data-i18n="history.e1.desc">Los fundadores inician actividades en la industria maderera del Ecuador, acumulando más de 27 años de experiencia y conocimiento del sector.</p>
         </div>
         <div class="hidden md:block"></div>
         <div class="timeline-dot hidden md:block"></div>
@@ -932,8 +990,8 @@
         <div class="hidden md:block"></div>
         <div class="md:pl-12">
           <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#D4A017;line-height:1;">2015</div>
-          <h4 class="font-bold text-forest mt-1 mb-2">Fundación</h4>
-          <p class="text-dark/65 text-sm leading-relaxed">Fundación oficial de Industrias Alawood S.A. en Daule, Guayas. Una nueva empresa con décadas de saber-hacer detrás.</p>
+          <h4 class="font-bold text-forest mt-1 mb-2" data-i18n="history.e2.title">Fundación</h4>
+          <p class="text-dark/65 text-sm leading-relaxed" data-i18n="history.e2.desc">Fundación oficial de Industrias Alawood S.A. en Daule, Guayas. Una nueva empresa con décadas de saber-hacer detrás.</p>
         </div>
         <div class="timeline-dot hidden md:block"></div>
       </div>
@@ -942,8 +1000,8 @@
       <div class="timeline-item grid md:grid-cols-2 gap-8 mb-14 reveal">
         <div class="md:text-right md:pr-12">
           <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#D4A017;line-height:1;">2018</div>
-          <h4 class="font-bold text-forest mt-1 mb-2">Expansión</h4>
-          <p class="text-dark/65 text-sm leading-relaxed">Expansión de instalaciones e incorporación de maquinaria de última generación para satisfacer la creciente demanda internacional.</p>
+          <h4 class="font-bold text-forest mt-1 mb-2" data-i18n="history.e3.title">Expansión</h4>
+          <p class="text-dark/65 text-sm leading-relaxed" data-i18n="history.e3.desc">Expansión de instalaciones e incorporación de maquinaria de última generación para satisfacer la creciente demanda internacional.</p>
         </div>
         <div class="hidden md:block"></div>
         <div class="timeline-dot hidden md:block"></div>
@@ -954,8 +1012,8 @@
         <div class="hidden md:block"></div>
         <div class="md:pl-12">
           <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#D4A017;line-height:1;">2021</div>
-          <h4 class="font-bold text-forest mt-1 mb-2">Línea Yoga</h4>
-          <p class="text-dark/65 text-sm leading-relaxed">Lanzamiento de la línea de bloques de yoga 100% balsa natural, abriendo nuevos mercados en el sector wellness y deportivo.</p>
+          <h4 class="font-bold text-forest mt-1 mb-2" data-i18n="history.e4.title">Línea Yoga</h4>
+          <p class="text-dark/65 text-sm leading-relaxed" data-i18n="history.e4.desc">Lanzamiento de la línea de bloques de yoga 100% balsa natural, abriendo nuevos mercados en el sector wellness y deportivo.</p>
         </div>
         <div class="timeline-dot hidden md:block"></div>
       </div>
@@ -964,8 +1022,8 @@
       <div class="timeline-item grid md:grid-cols-2 gap-8 reveal">
         <div class="md:text-right md:pr-12">
           <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#D4A017;line-height:1;">2023</div>
-          <h4 class="font-bold text-forest mt-1 mb-2">Consolidación</h4>
-          <p class="text-dark/65 text-sm leading-relaxed">70+ colaboradores. Consolidación como referente de exportación de balsa ecuatoriana hacia mercados internacionales.</p>
+          <h4 class="font-bold text-forest mt-1 mb-2" data-i18n="history.e5.title">Consolidación</h4>
+          <p class="text-dark/65 text-sm leading-relaxed" data-i18n="history.e5.desc">70+ colaboradores. Consolidación como referente de exportación de balsa ecuatoriana hacia mercados internacionales.</p>
         </div>
         <div class="hidden md:block"></div>
         <div class="timeline-dot hidden md:block"></div>
@@ -982,12 +1040,12 @@
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
     <div class="text-center mb-14 reveal">
-      <span style="color:#D4A017;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;">Hablemos</span>
+      <span data-i18n="contact.supertitle" style="color:#D4A017;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;">Hablemos</span>
       <div style="width:48px;height:3px;background:linear-gradient(90deg,#D4A017,rgba(255,255,255,0.2));border-radius:2px;margin:1rem auto 1.5rem;"></div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;line-height:1.2;">
+      <h2 data-i18n="contact.h2" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;line-height:1.2;">
         Contáctenos
       </h2>
-      <p class="text-white/60 mt-3 text-lg">Estamos listos para atender su requerimiento</p>
+      <p class="text-white/60 mt-3 text-lg" data-i18n="contact.subtitle">Estamos listos para atender su requerimiento</p>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-14">
@@ -997,8 +1055,8 @@
         <form id="contact-form" onsubmit="handleSubmit(event)" autocomplete="off">
           <div class="grid sm:grid-cols-2 gap-5 mb-5">
             <div>
-              <label class="form-label" for="nombre">Nombre completo</label>
-              <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required />
+              <label class="form-label" for="nombre" data-i18n="contact.label.nombre">Nombre completo</label>
+              <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Juan Pérez" data-i18n-placeholder="contact.ph.nombre" required />
             </div>
             <div>
               <label class="form-label" for="email">Email</label>
@@ -1006,23 +1064,23 @@
             </div>
           </div>
           <div class="mb-5">
-            <label class="form-label" for="empresa">Empresa</label>
-            <input class="form-input" type="text" id="empresa" name="empresa" placeholder="Nombre de su empresa" />
+            <label class="form-label" for="empresa" data-i18n="contact.label.empresa">Empresa</label>
+            <input class="form-input" type="text" id="empresa" name="empresa" placeholder="Nombre de su empresa" data-i18n-placeholder="contact.ph.empresa" />
           </div>
           <div class="mb-5">
-            <label class="form-label" for="producto">Producto de interés</label>
+            <label class="form-label" for="producto" data-i18n="contact.label.producto">Producto de interés</label>
             <select class="form-input" id="producto" name="producto">
-              <option value="">Seleccione un producto...</option>
-              <option value="bloques-balsa">Bloques de Balsa</option>
-              <option value="bloques-yoga">Bloques Yoga</option>
-              <option value="otro">Otro</option>
+              <option value="" data-i18n="contact.select.default">Seleccione un producto...</option>
+              <option value="bloques-balsa" data-i18n="contact.select.balsa">Bloques de Balsa</option>
+              <option value="bloques-yoga" data-i18n="contact.select.yoga">Bloques Yoga</option>
+              <option value="otro" data-i18n="contact.select.otro">Otro</option>
             </select>
           </div>
           <div class="mb-6">
-            <label class="form-label" for="mensaje">Mensaje</label>
-            <textarea class="form-input" id="mensaje" name="mensaje" rows="4" placeholder="Cuéntenos su requerimiento..." required style="resize:vertical;"></textarea>
+            <label class="form-label" for="mensaje" data-i18n="contact.label.mensaje">Mensaje</label>
+            <textarea class="form-input" id="mensaje" name="mensaje" rows="4" placeholder="Cuéntenos su requerimiento..." data-i18n-placeholder="contact.ph.mensaje" required style="resize:vertical;"></textarea>
           </div>
-          <button type="submit" class="btn-primary">Enviar Mensaje</button>
+          <button type="submit" class="btn-primary" data-i18n="contact.btn">Enviar Mensaje</button>
           <div id="success-msg">
             ✓ ¡Mensaje enviado! Nos pondremos en contacto con usted a la brevedad.
           </div>
@@ -1032,7 +1090,7 @@
       <!-- Info -->
       <div class="reveal reveal-delay-2">
         <div class="mb-8">
-          <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:1.5rem;">
+          <h3 data-i18n="contact.info.title" style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:1.5rem;">
             Información de Contacto
           </h3>
 
@@ -1041,7 +1099,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <div>
-              <div class="text-white/90 text-sm font-semibold mb-0.5">Dirección</div>
+              <div class="text-white/90 text-sm font-semibold mb-0.5" data-i18n="contact.info.address">Dirección</div>
               <div class="text-white/55 text-sm">Via a Yaguachi Viejo, Cone; Guayas – Guayaquil, Ecuador</div>
             </div>
           </div>
@@ -1061,7 +1119,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
             </div>
             <div>
-              <div class="text-white/90 text-sm font-semibold mb-0.5">Teléfono</div>
+              <div class="text-white/90 text-sm font-semibold mb-0.5" data-i18n="contact.info.phone">Teléfono</div>
               <a href="tel:+593985041938" class="text-white/55 text-sm hover:text-gold transition-colors">+593 985 041 938</a>
             </div>
           </div>
@@ -1099,26 +1157,26 @@
           <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#fff;letter-spacing:0.08em;line-height:1;">ALAWOOD</div>
           <div style="font-size:0.6rem;letter-spacing:0.22em;color:#D4A017;text-transform:uppercase;font-weight:600;">Industrias S.A.</div>
         </div>
-        <p class="text-white/45 text-sm leading-relaxed mt-4">
+        <p class="text-white/45 text-sm leading-relaxed mt-4" data-i18n="footer.desc">
           Líderes en aserrado y conservación de madera de balsa en Ecuador. Calidad, sostenibilidad y experiencia al servicio del mundo.
         </p>
       </div>
 
       <!-- Quick links -->
       <div>
-        <h4 class="text-white font-semibold text-sm mb-5 tracking-widest uppercase">Navegación</h4>
+        <h4 class="text-white font-semibold text-sm mb-5 tracking-widest uppercase" data-i18n="footer.nav.title">Navegación</h4>
         <ul class="space-y-3">
-          <li><a href="#nosotros"  class="text-white/45 text-sm hover:text-gold transition-colors">Nosotros</a></li>
-          <li><a href="#fabrica"   class="text-white/45 text-sm hover:text-gold transition-colors">Fábrica</a></li>
-          <li><a href="#productos" class="text-white/45 text-sm hover:text-gold transition-colors">Productos</a></li>
-          <li><a href="#historia"  class="text-white/45 text-sm hover:text-gold transition-colors">Historia</a></li>
-          <li><a href="#contacto"  class="text-white/45 text-sm hover:text-gold transition-colors">Contacto</a></li>
+          <li><a href="#nosotros"  class="text-white/45 text-sm hover:text-gold transition-colors" data-i18n="footer.nav.nosotros">Nosotros</a></li>
+          <li><a href="#fabrica"   class="text-white/45 text-sm hover:text-gold transition-colors" data-i18n="footer.nav.fabrica">Fábrica</a></li>
+          <li><a href="#productos" class="text-white/45 text-sm hover:text-gold transition-colors" data-i18n="footer.nav.productos">Productos</a></li>
+          <li><a href="#historia"  class="text-white/45 text-sm hover:text-gold transition-colors" data-i18n="footer.nav.historia">Historia</a></li>
+          <li><a href="#contacto"  class="text-white/45 text-sm hover:text-gold transition-colors" data-i18n="footer.nav.contacto">Contacto</a></li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div>
-        <h4 class="text-white font-semibold text-sm mb-5 tracking-widest uppercase">Contacto</h4>
+        <h4 class="text-white font-semibold text-sm mb-5 tracking-widest uppercase" data-i18n="footer.contact.title">Contacto</h4>
         <ul class="space-y-3">
           <li class="text-white/45 text-sm">Via a Yaguachi Viejo, Cone<br/>Guayas – Guayaquil, Ecuador</li>
           <li><a href="mailto:elozano@alawoodsa.com" class="text-white/45 text-sm hover:text-gold transition-colors">elozano@alawoodsa.com</a></li>
@@ -1129,7 +1187,7 @@
     </div>
 
     <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:2rem;text-align:center;">
-      <p class="text-white/30 text-xs">
+      <p class="text-white/30 text-xs" data-i18n="footer.copyright">
         © 2024 Industrias Alawood S.A. | Daule, Guayas, Ecuador | Todos los derechos reservados
       </p>
     </div>
@@ -1140,6 +1198,301 @@
      JAVASCRIPT
 ════════════════════════════════════════ -->
 <script>
+  /* ══════════════════════════════════════
+     i18n TRANSLATIONS
+  ════════════════════════════════════════ */
+  const translations = {
+    es: {
+      /* NAVBAR */
+      'nav.nosotros': 'Nosotros',
+      'nav.fabrica':  'Fábrica',
+      'nav.productos':'Productos',
+      'nav.historia': 'Historia',
+      'nav.contacto': 'Contacto',
+      'nav.cotizar':  'Cotizar',
+      /* HERO */
+      'hero.badge':    'Ecuador · Guayas · Balsa Premium',
+      'hero.h1':       'La Madera Más<br /><em style="color:#D4A017;">Liviana</em> del Mundo,<br />Desde Ecuador',
+      'hero.subtitle': '27 años de experiencia. 70 colaboradores. Calidad certificada en balsa de alta densidad.',
+      'hero.cta1':     'Ver Productos',
+      'hero.cta2':     'Conoce la Fábrica',
+      'hero.stat1':    'Años',
+      'hero.stat2':    'Colaboradores',
+      'hero.stat3':    'Balsa Ecuatoriana',
+      /* NOSOTROS */
+      'about.tag':        'Quiénes Somos',
+      'about.h2':         '¿Quiénes Somos?',
+      'about.p1':         'Alawood S.A. fue fundada en 2015 con sede en Daule, Guayas. Somos especialistas en el aserrado y conservación de madera de balsa, una de las maderas más valoradas del mundo por su <strong class="text-forest-mid">resistencia excepcional en relación a su peso</strong>.',
+      'about.p2':         'Operamos con más de 70 colaboradores comprometidos con la calidad y la sostenibilidad, llevando lo mejor de Ecuador al mundo.',
+      'about.val1.title': 'Calidad',
+      'about.val1.desc':  'Estándares internacionales en cada proceso',
+      'about.val2.title': 'Sostenibilidad',
+      'about.val2.desc':  'Comprometidos con el medio ambiente',
+      'about.val3.title': 'Experiencia',
+      'about.val3.desc':  '27 años en la industria maderera',
+      'about.val4.title': 'Innovación',
+      'about.val4.desc':  'Tecnología de punta en cada etapa',
+      /* BENEFICIOS */
+      'benefits.supertitle':   'Material Premium',
+      'benefits.h2':           '¿Por qué Madera de Balsa?',
+      'benefits.subtitle':     'Propiedades únicas que la convierten en el material preferido de las industrias más exigentes del mundo.',
+      'benefits.card1.title':  'Ultra Liviana',
+      'benefits.card1.desc':   'La madera más liviana del mundo, ideal para aplicaciones aeroespaciales, náuticas y deportivas.',
+      'benefits.card2.title':  'Alta Resistencia',
+      'benefits.card2.desc':   'Relación resistencia/peso superior a cualquier otra madera tropical del planeta.',
+      'benefits.card3.title':  'Excelente Aislante',
+      'benefits.card3.desc':   'Propiedades térmicas y acústicas excepcionales para aplicaciones de construcción e industria.',
+      'benefits.card4.title':  '100% Renovable',
+      'benefits.card4.desc':   'Árbol de rápido crecimiento, altamente sostenible y con huella de carbono reducida.',
+      'benefits.card5.title':  'Versátil',
+      'benefits.card5.desc':   'Aplicaciones en construcción, deporte, industria aeronáutica, naval y arte.',
+      'benefits.card6.title':  'Origen Ecuatoriano',
+      'benefits.card6.desc':   'Ecuador, el mayor productor de balsa del mundo. Calidad desde la fuente.',
+      /* FÁBRICA */
+      'factory.tag':           'Instalaciones',
+      'factory.h2':            'Nuestra Fábrica',
+      'factory.subtitle':      'Instalaciones modernas con tecnología de punta en el corazón del Guayas',
+      'factory.area1':         'Patios de Secado',
+      'factory.area2':         'Sierras Industriales',
+      'factory.area3':         'Cepilladoras',
+      'factory.area4':         'Control de Calidad',
+      'factory.desc':          'Contamos con amplios patios para recepción y secado de madera. Nuestra planta integra <strong class="text-forest">sierras, cepilladoras y encoladoras</strong> de última generación para producir bloques que cumplen con los más altos estándares internacionales.',
+      'factory.process.title': 'Proceso Productivo',
+      'factory.step1':         'Recepción',
+      'factory.step2':         'Secado',
+      'factory.step3':         'Corte',
+      'factory.step4':         'Cepillado',
+      'factory.step5':         'Control de Calidad',
+      'factory.step6':         'Despacho',
+      /* PRODUCTOS */
+      'products.tag':         'Catálogo',
+      'products.h2':          'Nuestros Productos',
+      'products.card1.title': 'Bloques de Balsa',
+      'products.card1.desc':  'Bloques elaborados con balsa de alta calidad que cumplen con los más exigentes estándares internacionales. Disponibles en múltiples dimensiones y densidades.',
+      'products.card2.title': 'Bloques para Yoga',
+      'products.card2.desc':  'Bloques de yoga fabricados con balsa 100% natural. Ofrecen mayor altura, estabilidad y soporte para tu práctica, con el peso pluma que solo la balsa puede dar.',
+      'products.cta':         'Solicitar Cotización',
+      /* HISTORIA */
+      'history.tag':       'Trayectoria',
+      'history.h2':        'Nuestra Historia',
+      'history.e1.title':  'Los Comienzos',
+      'history.e1.desc':   'Los fundadores inician actividades en la industria maderera del Ecuador, acumulando más de 27 años de experiencia y conocimiento del sector.',
+      'history.e2.title':  'Fundación',
+      'history.e2.desc':   'Fundación oficial de Industrias Alawood S.A. en Daule, Guayas. Una nueva empresa con décadas de saber-hacer detrás.',
+      'history.e3.title':  'Expansión',
+      'history.e3.desc':   'Expansión de instalaciones e incorporación de maquinaria de última generación para satisfacer la creciente demanda internacional.',
+      'history.e4.title':  'Línea Yoga',
+      'history.e4.desc':   'Lanzamiento de la línea de bloques de yoga 100% balsa natural, abriendo nuevos mercados en el sector wellness y deportivo.',
+      'history.e5.title':  'Consolidación',
+      'history.e5.desc':   '70+ colaboradores. Consolidación como referente de exportación de balsa ecuatoriana hacia mercados internacionales.',
+      /* CONTACTO */
+      'contact.supertitle':    'Hablemos',
+      'contact.h2':            'Contáctenos',
+      'contact.subtitle':      'Estamos listos para atender su requerimiento',
+      'contact.label.nombre':  'Nombre completo',
+      'contact.label.empresa': 'Empresa',
+      'contact.label.producto':'Producto de interés',
+      'contact.label.mensaje': 'Mensaje',
+      'contact.ph.nombre':     'Juan Pérez',
+      'contact.ph.empresa':    'Nombre de su empresa',
+      'contact.ph.mensaje':    'Cuéntenos su requerimiento...',
+      'contact.select.default':'Seleccione un producto...',
+      'contact.select.balsa':  'Bloques de Balsa',
+      'contact.select.yoga':   'Bloques Yoga',
+      'contact.select.otro':   'Otro',
+      'contact.btn':           'Enviar Mensaje',
+      'contact.sending':       'Enviando...',
+      'contact.success':       '✓ ¡Mensaje enviado! Nos pondremos en contacto con usted a la brevedad.',
+      'contact.info.title':    'Información de Contacto',
+      'contact.info.address':  'Dirección',
+      'contact.info.phone':    'Teléfono',
+      /* FOOTER */
+      'footer.desc':          'Líderes en aserrado y conservación de madera de balsa en Ecuador. Calidad, sostenibilidad y experiencia al servicio del mundo.',
+      'footer.nav.title':     'Navegación',
+      'footer.contact.title': 'Contacto',
+      'footer.nav.nosotros':  'Nosotros',
+      'footer.nav.fabrica':   'Fábrica',
+      'footer.nav.productos': 'Productos',
+      'footer.nav.historia':  'Historia',
+      'footer.nav.contacto':  'Contacto',
+      'footer.copyright':     '© 2024 Industrias Alawood S.A. | Daule, Guayas, Ecuador | Todos los derechos reservados',
+    },
+    en: {
+      /* NAVBAR */
+      'nav.nosotros': 'About Us',
+      'nav.fabrica':  'Factory',
+      'nav.productos':'Products',
+      'nav.historia': 'History',
+      'nav.contacto': 'Contact',
+      'nav.cotizar':  'Get a Quote',
+      /* HERO */
+      'hero.badge':    'Ecuador · Guayas · Premium Balsa',
+      'hero.h1':       'The World\'s<br /><em style="color:#D4A017;">Lightest</em> Wood,<br />From Ecuador',
+      'hero.subtitle': '27 years of experience. 70 employees. Certified quality in high-density balsa wood.',
+      'hero.cta1':     'View Products',
+      'hero.cta2':     'Explore the Factory',
+      'hero.stat1':    'Years',
+      'hero.stat2':    'Employees',
+      'hero.stat3':    'Ecuadorian Balsa',
+      /* NOSOTROS */
+      'about.tag':        'Who We Are',
+      'about.h2':         'Who We Are',
+      'about.p1':         'Alawood S.A. was founded in 2015 and is headquartered in Daule, Guayas. We specialize in the sawing and preservation of balsa wood, one of the most valued woods in the world for its <strong class="text-forest-mid">exceptional strength-to-weight ratio</strong>.',
+      'about.p2':         'We operate with over 70 employees committed to quality and sustainability, bringing the best of Ecuador to the world.',
+      'about.val1.title': 'Quality',
+      'about.val1.desc':  'International standards in every process',
+      'about.val2.title': 'Sustainability',
+      'about.val2.desc':  'Committed to the environment',
+      'about.val3.title': 'Experience',
+      'about.val3.desc':  '27 years in the timber industry',
+      'about.val4.title': 'Innovation',
+      'about.val4.desc':  'Cutting-edge technology at every stage',
+      /* BENEFICIOS */
+      'benefits.supertitle':   'Premium Material',
+      'benefits.h2':           'Why Balsa Wood?',
+      'benefits.subtitle':     'Unique properties that make it the preferred material for the world\'s most demanding industries.',
+      'benefits.card1.title':  'Ultra Lightweight',
+      'benefits.card1.desc':   'The lightest wood in the world, ideal for aerospace, nautical, and sporting applications.',
+      'benefits.card2.title':  'High Strength',
+      'benefits.card2.desc':   'Superior strength-to-weight ratio compared to any other tropical wood on the planet.',
+      'benefits.card3.title':  'Excellent Insulator',
+      'benefits.card3.desc':   'Exceptional thermal and acoustic properties for construction and industrial applications.',
+      'benefits.card4.title':  '100% Renewable',
+      'benefits.card4.desc':   'Fast-growing tree, highly sustainable with a reduced carbon footprint.',
+      'benefits.card5.title':  'Versatile',
+      'benefits.card5.desc':   'Applications in construction, sports, aerospace, naval, and art industries.',
+      'benefits.card6.title':  'Ecuadorian Origin',
+      'benefits.card6.desc':   'Ecuador, the world\'s largest balsa producer. Quality straight from the source.',
+      /* FÁBRICA */
+      'factory.tag':           'Facilities',
+      'factory.h2':            'Our Factory',
+      'factory.subtitle':      'Modern facilities with state-of-the-art technology in the heart of Guayas',
+      'factory.area1':         'Drying Yards',
+      'factory.area2':         'Industrial Saws',
+      'factory.area3':         'Planers',
+      'factory.area4':         'Quality Control',
+      'factory.desc':          'We have spacious yards for wood reception and drying. Our plant integrates <strong class="text-forest">saws, planers, and gluers</strong> of the latest generation to produce blocks that meet the highest international standards.',
+      'factory.process.title': 'Production Process',
+      'factory.step1':         'Reception',
+      'factory.step2':         'Drying',
+      'factory.step3':         'Cutting',
+      'factory.step4':         'Planing',
+      'factory.step5':         'Quality Control',
+      'factory.step6':         'Dispatch',
+      /* PRODUCTOS */
+      'products.tag':         'Catalog',
+      'products.h2':          'Our Products',
+      'products.card1.title': 'Balsa Blocks',
+      'products.card1.desc':  'Blocks made with high-quality balsa that meet the most demanding international standards. Available in multiple dimensions and densities.',
+      'products.card2.title': 'Yoga Blocks',
+      'products.card2.desc':  'Yoga blocks made from 100% natural balsa. They offer greater height, stability, and support for your practice, with the featherlight weight only balsa can provide.',
+      'products.cta':         'Request a Quote',
+      /* HISTORIA */
+      'history.tag':       'Journey',
+      'history.h2':        'Our History',
+      'history.e1.title':  'The Beginnings',
+      'history.e1.desc':   'The founders begin operations in Ecuador\'s timber industry, accumulating over 27 years of experience and industry knowledge.',
+      'history.e2.title':  'Foundation',
+      'history.e2.desc':   'Official founding of Industrias Alawood S.A. in Daule, Guayas. A new company backed by decades of expertise.',
+      'history.e3.title':  'Expansion',
+      'history.e3.desc':   'Expansion of facilities and incorporation of state-of-the-art machinery to meet growing international demand.',
+      'history.e4.title':  'Yoga Line',
+      'history.e4.desc':   'Launch of the 100% natural balsa yoga block line, opening new markets in the wellness and sports sectors.',
+      'history.e5.title':  'Consolidation',
+      'history.e5.desc':   '70+ employees. Consolidation as a benchmark for Ecuadorian balsa exports to international markets.',
+      /* CONTACTO */
+      'contact.supertitle':    "Let's Talk",
+      'contact.h2':            'Contact Us',
+      'contact.subtitle':      'We are ready to assist with your requirements',
+      'contact.label.nombre':  'Full Name',
+      'contact.label.empresa': 'Company',
+      'contact.label.producto':'Product of interest',
+      'contact.label.mensaje': 'Message',
+      'contact.ph.nombre':     'John Doe',
+      'contact.ph.empresa':    'Your company name',
+      'contact.ph.mensaje':    'Tell us about your requirements...',
+      'contact.select.default':'Select a product...',
+      'contact.select.balsa':  'Balsa Blocks',
+      'contact.select.yoga':   'Yoga Blocks',
+      'contact.select.otro':   'Other',
+      'contact.btn':           'Send Message',
+      'contact.sending':       'Sending...',
+      'contact.success':       '✓ Message sent! We will get back to you shortly.',
+      'contact.info.title':    'Contact Information',
+      'contact.info.address':  'Address',
+      'contact.info.phone':    'Phone',
+      /* FOOTER */
+      'footer.desc':          'Leaders in balsa wood sawing and preservation in Ecuador. Quality, sustainability, and experience at the service of the world.',
+      'footer.nav.title':     'Navigation',
+      'footer.contact.title': 'Contact',
+      'footer.nav.nosotros':  'About Us',
+      'footer.nav.fabrica':   'Factory',
+      'footer.nav.productos': 'Products',
+      'footer.nav.historia':  'History',
+      'footer.nav.contacto':  'Contact',
+      'footer.copyright':     '© 2024 Industrias Alawood S.A. | Daule, Guayas, Ecuador | All rights reserved',
+    }
+  };
+
+  /* ══════════════════════════════════════
+     LANGUAGE SYSTEM
+  ════════════════════════════════════════ */
+  let currentLang = 'es';
+
+  function updateToggleButtons(lang) {
+    ['desktop', 'mobile'].forEach(scope => {
+      const btnEs = document.getElementById('btn-es-' + scope);
+      const btnEn = document.getElementById('btn-en-' + scope);
+      if (!btnEs || !btnEn) return;
+      if (lang === 'es') {
+        btnEs.classList.add('active');
+        btnEn.classList.remove('active');
+      } else {
+        btnEn.classList.add('active');
+        btnEs.classList.remove('active');
+      }
+    });
+  }
+
+  function applyTranslations(lang) {
+    const t = translations[lang];
+    /* plain text */
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+    /* innerHTML (elements with nested tags) */
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.dataset.i18nHtml;
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    /* placeholders */
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.dataset.i18nPlaceholder;
+      if (t[key] !== undefined) el.placeholder = t[key];
+    });
+    /* html lang attribute */
+    document.documentElement.lang = lang;
+  }
+
+  function setLanguage(lang) {
+    if (lang === currentLang) return;
+    currentLang = lang;
+
+    /* fade out */
+    document.body.classList.add('lang-transition');
+    setTimeout(() => {
+      applyTranslations(lang);
+      updateToggleButtons(lang);
+      localStorage.setItem('alawood-lang', lang);
+      /* fade back in */
+      document.body.classList.remove('lang-transition');
+      document.body.style.opacity = '1';
+      document.body.style.transition = 'opacity 0.2s ease';
+      setTimeout(() => { document.body.style.transition = ''; }, 220);
+    }, 150);
+  }
+
   /* ── Custom cursor ─────────────────── */
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', e => {
@@ -1188,13 +1541,13 @@
   let countersStarted = false;
 
   function animateCounter(el) {
-    const target  = parseInt(el.dataset.target, 10);
-    const suffix  = el.dataset.suffix || '';
+    const target   = parseInt(el.dataset.target, 10);
+    const suffix   = el.dataset.suffix || '';
     const duration = 1800;
-    const steps   = 60;
-    const step    = target / steps;
-    let current   = 0;
-    let frame     = 0;
+    const steps    = 60;
+    const step     = target / steps;
+    let current    = 0;
+    let frame      = 0;
 
     const timer = setInterval(() => {
       frame++;
@@ -1232,17 +1585,18 @@
   function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button[type="submit"]');
-    btn.textContent = 'Enviando...';
+    const t   = translations[currentLang];
+    btn.textContent = t['contact.sending'];
     btn.disabled = true;
 
     setTimeout(() => {
-      document.getElementById('success-msg').style.display = 'block';
-      btn.textContent = 'Enviar Mensaje';
+      const msg = document.getElementById('success-msg');
+      msg.textContent = t['contact.success'];
+      msg.style.display = 'block';
+      btn.textContent = t['contact.btn'];
       btn.disabled = false;
       e.target.reset();
-      setTimeout(() => {
-        document.getElementById('success-msg').style.display = 'none';
-      }, 5000);
+      setTimeout(() => { msg.style.display = 'none'; }, 5000);
     }, 900);
   }
 
@@ -1256,6 +1610,16 @@
       }
     });
   });
+
+  /* ── Init language from localStorage ── */
+  (function initLang() {
+    const saved = localStorage.getItem('alawood-lang');
+    if (saved && saved !== 'es' && translations[saved]) {
+      currentLang = saved;
+      applyTranslations(saved);
+      updateToggleButtons(saved);
+    }
+  })();
 </script>
 
 </body>
