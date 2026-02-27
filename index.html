@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Industrias Alawood S.A. | Madera de Balsa Ecuatoriana</title>
+  <meta name="description" content="Alawood S.A. — Líderes en aserrado y conservación de madera de balsa en Ecuador. 27 años de experiencia, 70+ colaboradores, calidad certificada." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest:    '#1B4332',
+            'forest-mid': '#2D6A4F',
+            beige:     '#F5E6CA',
+            cream:     '#FEFAE0',
+            gold:      '#D4A017',
+            dark:      '#1A1A1A',
+            'forest-deep': '#0D2B1F',
+          },
+          fontFamily: {
+            inter:    ['Inter', 'sans-serif'],
+            playfair: ['"Playfair Display"', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FEFAE0;
+      color: #1A1A1A;
+      opacity: 0;
+      animation: fadeInBody 0.8s ease forwards 0.1s;
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeInBody { to { opacity: 1; } }
+
+    /* ── Custom cursor ──────────────────────────── */
+    .custom-cursor {
+      width: 12px;
+      height: 12px;
+      background: #2D6A4F;
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, background 0.2s ease, width 0.2s ease, height 0.2s ease;
+      mix-blend-mode: multiply;
+    }
+    .custom-cursor.hovering {
+      width: 24px;
+      height: 24px;
+      background: #D4A017;
+    }
+
+    /* ── Navbar ─────────────────────────────────── */
+    #navbar {
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: #1B4332 !important;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    }
+    .nav-link {
+      position: relative;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: #D4A017;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: #fff; }
+    .nav-link:hover::after { width: 100%; }
+
+    .btn-cta {
+      background: #2D6A4F;
+      color: #fff;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-cta:hover {
+      background: #D4A017;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(212,160,23,0.35);
+    }
+
+    /* ── Hero ─────────────────────────────────── */
+    #hero {
+      background-color: #1B4332;
+      background-image:
+        repeating-linear-gradient(
+          92deg,
+          transparent,
+          transparent 38px,
+          rgba(255,255,255,0.025) 38px,
+          rgba(255,255,255,0.025) 40px
+        ),
+        repeating-linear-gradient(
+          180deg,
+          transparent,
+          transparent 80px,
+          rgba(0,0,0,0.06) 80px,
+          rgba(0,0,0,0.06) 82px
+        ),
+        linear-gradient(160deg, #1B4332 0%, #2D6A4F 50%, #1B4332 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+
+    .hero-img-placeholder {
+      background: linear-gradient(135deg, #0D2B1F 0%, #2D6A4F 100%);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    }
+    .hero-img-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 16px;
+    }
+
+    /* Parallax hero content */
+    .hero-parallax { will-change: transform; }
+
+    /* ── Counter ──────────────────────────────── */
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.75rem;
+      font-weight: 700;
+      color: #D4A017;
+      line-height: 1;
+    }
+
+    /* ── Section reveal ──────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── Cards ─────────────────────────────── */
+    .feature-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+
+    .value-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 24px rgba(27,67,50,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(27,67,50,0.15);
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(27,67,50,0.10);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(27,67,50,0.18);
+    }
+
+    .factory-card {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .factory-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.25);
+    }
+    .factory-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+    .factory-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,43,31,0.85) 0%, transparent 50%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+    }
+
+    /* ── Timeline ─────────────────────────────── */
+    .timeline-wrapper { position: relative; }
+    .timeline-wrapper::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #2D6A4F, #D4A017);
+      transform: translateX(-50%);
+    }
+    @media (max-width: 767px) {
+      .timeline-wrapper::before { left: 20px; transform: none; }
+    }
+
+    .timeline-item { position: relative; }
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      width: 14px; height: 14px;
+      background: #D4A017;
+      border-radius: 50%;
+      border: 3px solid #FEFAE0;
+      box-shadow: 0 0 0 3px #D4A017;
+      z-index: 1;
+      top: 0;
+    }
+    @media (max-width: 767px) {
+      .timeline-dot { left: 20px; transform: translate(-50%, 50%); }
+    }
+
+    /* ── Contact form ─────────────────────────── */
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #D4A017;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      background: #fff;
+      color: #1A1A1A;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus {
+      border-color: #2D6A4F;
+      box-shadow: 0 0 0 3px rgba(45,106,79,0.15);
+    }
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #1B4332;
+      margin-bottom: 0.35rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2D6A4F, #1B4332);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #D4A017, #b8890f);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212,160,23,0.35);
+    }
+
+    /* ── Success message ─────────────────────── */
+    #success-msg {
+      display: none;
+      background: #2D6A4F;
+      color: #fff;
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* ── Tag chips ────────────────────────────── */
+    .tag {
+      display: inline-block;
+      background: #F5E6CA;
+      color: #1B4332;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    /* ── Section headings ─────────────────────── */
+    .section-tag {
+      display: inline-block;
+      color: #2D6A4F;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .section-divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, #D4A017, #2D6A4F);
+      border-radius: 2px;
+      margin: 1rem 0 1.5rem;
+    }
+
+    /* ── Process steps ───────────────────────── */
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+      position: relative;
+    }
+    .process-step::after {
+      content: '→';
+      position: absolute;
+      right: -18px;
+      top: 20px;
+      color: #D4A017;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .process-step:last-child::after { display: none; }
+    @media (max-width: 767px) {
+      .process-step::after { display: none; }
+    }
+    .process-num {
+      width: 40px; height: 40px;
+      background: #D4A017;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Hamburger ───────────────────────────── */
+    .hamburger { cursor: pointer; padding: 4px; }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: #fff;
+      margin: 5px 0;
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    #mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    #mobile-menu.open { max-height: 400px; }
+
+    /* ── Scrollbar ─────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0D2B1F; }
+    ::-webkit-scrollbar-thumb { background: #2D6A4F; border-radius: 3px; }
+
+    /* ── Image real ─────────────────────────── */
+    .real-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     CUSTOM CURSOR
+════════════════════════════════════════ -->
+<div class="custom-cursor" id="cursor"></div>
+
+<!-- ══════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+
+      <!-- Logo -->
+      <a href="#hero" class="flex flex-col leading-none">
+        <span style="font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; color:#fff; letter-spacing:0.08em; line-height:1;">ALAWOOD</span>
+        <span style="font-size:0.6rem; letter-spacing:0.22em; color:#D4A017; text-transform:uppercase; font-weight:600;">Industrias S.A.</span>
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#nosotros"  class="nav-link">Nosotros</a>
+        <a href="#fabrica"   class="nav-link">Fábrica</a>
+        <a href="#productos" class="nav-link">Productos</a>
+        <a href="#historia"  class="nav-link">Historia</a>
+        <a href="#contacto"  class="nav-link">Contacto</a>
+        <a href="#contacto"  class="btn-cta">Cotizar</a>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="hamburger md:hidden" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden bg-forest">
+    <div class="px-6 py-4 flex flex-col gap-4">
+      <a href="#nosotros"  class="nav-link" onclick="closeMobile()">Nosotros</a>
+      <a href="#fabrica"   class="nav-link" onclick="closeMobile()">Fábrica</a>
+      <a href="#productos" class="nav-link" onclick="closeMobile()">Productos</a>
+      <a href="#historia"  class="nav-link" onclick="closeMobile()">Historia</a>
+      <a href="#contacto"  class="nav-link" onclick="closeMobile()">Contacto</a>
+      <a href="#contacto"  class="btn-cta inline-block text-center" onclick="closeMobile()">Cotizar</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO SECTION
+════════════════════════════════════════ -->
+<section id="hero" class="relative min-h-screen flex items-center pt-20">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full py-20">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Left: copy -->
+      <div class="hero-parallax">
+        <div class="reveal">
+          <span class="inline-block text-gold text-xs font-bold tracking-widest uppercase mb-4">Ecuador · Guayas · Balsa Premium</span>
+          <h1 style="font-family:'Playfair Display',serif; font-size:clamp(2.4rem,5vw,3.8rem); font-weight:700; color:#fff; line-height:1.15; margin-bottom:1.25rem;">
+            La Madera Más<br />
+            <em style="color:#D4A017;">Liviana</em> del Mundo,<br />
+            Desde Ecuador
+          </h1>
+          <p class="text-white/70 text-lg leading-relaxed mb-8" style="max-width:500px;">
+            27 años de experiencia. 70 colaboradores. Calidad certificada en balsa de alta densidad.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#productos" class="btn-cta text-base px-8 py-3">Ver Productos</a>
+            <a href="#fabrica"
+               style="display:inline-block; padding:0.75rem 2rem; border:2px solid rgba(255,255,255,0.55); border-radius:6px; color:#fff; font-size:0.95rem; font-weight:600; transition:border-color 0.25s, background 0.25s; text-decoration:none;"
+               onmouseover="this.style.borderColor='#D4A017';this.style.color='#D4A017';"
+               onmouseout="this.style.borderColor='rgba(255,255,255,0.55)';this.style.color='#fff';">
+               Conoce la Fábrica
+            </a>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 mt-16 reveal reveal-delay-2">
+          <div class="text-center">
+            <div class="stat-number" data-target="27" data-suffix="+">0</div>
+            <div class="text-white/60 text-sm mt-1 font-medium">Años</div>
+          </div>
+          <div class="text-center">
+            <div class="stat-number" data-target="70" data-suffix="+">0</div>
+            <div class="text-white/60 text-sm mt-1 font-medium">Colaboradores</div>
+          </div>
+          <div class="text-center">
+            <div class="stat-number" data-target="100" data-suffix="%">0</div>
+            <div class="text-white/60 text-sm mt-1 font-medium">Balsa Ecuatoriana</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: image -->
+      <div class="reveal reveal-delay-1">
+        <div class="hero-img-placeholder" style="min-height:460px;">
+          <img src="https://ialawoodsa.wordpress.com/wp-content/uploads/2023/01/20230116_150204.jpg"
+               alt="Instalaciones Alawood"
+               style="width:100%;height:100%;object-fit:cover;min-height:460px;border-radius:16px;"
+               onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:460px;color:rgba(255,255,255,0.6);font-size:0.9rem;\'>[Foto: Instalaciones Alawood]</div>'" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+    <div style="width:1px;height:48px;background:linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,255,255,0.7));animation:pulse 2s infinite;"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     NOSOTROS / ABOUT
+════════════════════════════════════════ -->
+<section id="nosotros" class="py-24 bg-cream">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Text -->
+      <div class="reveal">
+        <span class="section-tag">Quiénes Somos</span>
+        <div class="section-divider"></div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;margin-bottom:1.5rem;">
+          ¿Quiénes Somos?
+        </h2>
+        <p class="text-dark/75 leading-relaxed text-lg mb-6">
+          Alawood S.A. fue fundada en 2015 con sede en Daule, Guayas. Somos especialistas en el aserrado y conservación de madera de balsa, una de las maderas más valoradas del mundo por su <strong class="text-forest-mid">resistencia excepcional en relación a su peso</strong>.
+        </p>
+        <p class="text-dark/65 leading-relaxed mb-10">
+          Operamos con más de 70 colaboradores comprometidos con la calidad y la sostenibilidad, llevando lo mejor de Ecuador al mundo.
+        </p>
+
+        <!-- Value cards -->
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Calidad -->
+          <div class="value-card reveal reveal-delay-1">
+            <div class="mb-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01z"/>
+              </svg>
+            </div>
+            <h4 class="font-bold text-forest text-sm mb-1">Calidad</h4>
+            <p class="text-xs text-dark/60">Estándares internacionales en cada proceso</p>
+          </div>
+          <!-- Sostenibilidad -->
+          <div class="value-card reveal reveal-delay-2">
+            <div class="mb-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 8C8 10 5.9 16.17 3.82 19.82a2.93 2.93 0 002.18.18c1.5-5.5 7-7 7-7-1 1.5-2.5 6-2.5 6A14 14 0 0021 12.93C21 9.6 19.5 8 17 8z"/>
+              </svg>
+            </div>
+            <h4 class="font-bold text-forest text-sm mb-1">Sostenibilidad</h4>
+            <p class="text-xs text-dark/60">Comprometidos con el medio ambiente</p>
+          </div>
+          <!-- Experiencia -->
+          <div class="value-card reveal reveal-delay-3">
+            <div class="mb-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h4 class="font-bold text-forest text-sm mb-1">Experiencia</h4>
+            <p class="text-xs text-dark/60">27 años en la industria maderera</p>
+          </div>
+          <!-- Innovación -->
+          <div class="value-card reveal reveal-delay-4">
+            <div class="mb-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <h4 class="font-bold text-forest text-sm mb-1">Innovación</h4>
+            <p class="text-xs text-dark/60">Tecnología de punta en cada etapa</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="reveal reveal-delay-2">
+        <div style="border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(27,67,50,0.18);aspect-ratio:4/5;">
+          <img src="https://ialawoodsa.wordpress.com/wp-content/uploads/2023/02/img_20230119_100911-1.jpg"
+               alt="Fábrica Alawood"
+               style="width:100%;height:100%;object-fit:cover;"
+               onerror="this.parentElement.style.background='linear-gradient(135deg,#1B4332,#2D6A4F)';this.parentElement.innerHTML+='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.6);font-size:0.9rem;\'>[Foto: Nosotros / Equipo]</div>';this.remove();" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BENEFICIOS DE LA BALSA
+════════════════════════════════════════ -->
+<section id="beneficios" class="py-24" style="background:#1B4332;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <span style="color:#D4A017;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;">Material Premium</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;margin-top:0.5rem;line-height:1.2;">
+        ¿Por qué Madera de Balsa?
+      </h2>
+      <p class="text-white/60 mt-4 max-w-xl mx-auto text-lg">
+        Propiedades únicas que la convierten en el material preferido de las industrias más exigentes del mundo.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- 1 -->
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="mb-4">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-2">Ultra Liviana</h3>
+        <p class="text-white/60 text-sm leading-relaxed">La madera más liviana del mundo, ideal para aplicaciones aeroespaciales, náuticas y deportivas.</p>
+      </div>
+
+      <!-- 2 -->
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="mb-4">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22V12M12 12L8 16M12 12l4 4"/>
+            <path d="M20 16.58A5 5 0 0018 7h-1.26A8 8 0 104 15.25"/>
+          </svg>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-2">Alta Resistencia</h3>
+        <p class="text-white/60 text-sm leading-relaxed">Relación resistencia/peso superior a cualquier otra madera tropical del planeta.</p>
+      </div>
+
+      <!-- 3 -->
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="mb-4">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-2">Excelente Aislante</h3>
+        <p class="text-white/60 text-sm leading-relaxed">Propiedades térmicas y acústicas excepcionales para aplicaciones de construcción e industria.</p>
+      </div>
+
+      <!-- 4 -->
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="mb-4">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 8C8 10 5.9 16.17 3.82 19.82a2.93 2.93 0 002.18.18c1.5-5.5 7-7 7-7-1 1.5-2.5 6-2.5 6A14 14 0 0021 12.93C21 9.6 19.5 8 17 8z"/>
+          </svg>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-2">100% Renovable</h3>
+        <p class="text-white/60 text-sm leading-relaxed">Árbol de rápido crecimiento, altamente sostenible y con huella de carbono reducida.</p>
+      </div>
+
+      <!-- 5 -->
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="mb-4">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+          </svg>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-2">Versátil</h3>
+        <p class="text-white/60 text-sm leading-relaxed">Aplicaciones en construcción, deporte, industria aeronáutica, naval y arte.</p>
+      </div>
+
+      <!-- 6 -->
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="mb-4">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-2">Origen Ecuatoriano</h3>
+        <p class="text-white/60 text-sm leading-relaxed">Ecuador, el mayor productor de balsa del mundo. Calidad desde la fuente.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FÁBRICA / INSTALACIONES
+════════════════════════════════════════ -->
+<section id="fabrica" class="py-24 bg-cream">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+    <div class="text-center mb-14 reveal">
+      <span class="section-tag">Instalaciones</span>
+      <div class="section-divider mx-auto"></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;margin-bottom:1rem;">
+        Nuestra Fábrica
+      </h2>
+      <p class="text-dark/65 text-lg max-w-2xl mx-auto">
+        Instalaciones modernas con tecnología de punta en el corazón del Guayas
+      </p>
+    </div>
+
+    <!-- Image grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
+
+      <div class="factory-card reveal reveal-delay-1">
+        <img src="https://ialawoodsa.wordpress.com/wp-content/uploads/2023/02/img_20230119_100911-1.jpg"
+             alt="Patios de Secado"
+             onerror="this.parentElement.style.minHeight='260px';this.parentElement.style.background='linear-gradient(135deg,#1B4332,#2D6A4F)';this.remove();" />
+        <div class="factory-card-overlay">
+          <span class="text-white font-semibold text-sm">Patios de Secado</span>
+        </div>
+      </div>
+
+      <div class="factory-card reveal reveal-delay-2" style="background:linear-gradient(135deg,#2D6A4F,#1B4332);min-height:260px;display:flex;align-items:center;justify-content:center;">
+        <div class="factory-card-overlay" style="position:relative;inset:auto;background:none;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;height:260px;width:100%;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          <span class="text-white/70 text-sm mt-2">Sierras Industriales</span>
+        </div>
+      </div>
+
+      <div class="factory-card reveal reveal-delay-3" style="background:linear-gradient(135deg,#0D2B1F,#1B4332);min-height:260px;display:flex;align-items:center;justify-content:center;">
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:260px;width:100%;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          <span class="text-white/70 text-sm mt-2">Cepilladoras</span>
+        </div>
+      </div>
+
+      <div class="factory-card reveal reveal-delay-4" style="background:linear-gradient(135deg,#1B4332,#D4A017 200%);min-height:260px;display:flex;align-items:center;justify-content:center;">
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:260px;width:100%;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          <span class="text-white/70 text-sm mt-2">Control de Calidad</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Description -->
+    <div class="max-w-3xl mx-auto text-center reveal mb-16">
+      <p class="text-dark/70 leading-relaxed text-lg">
+        Contamos con amplios patios para recepción y secado de madera. Nuestra planta integra <strong class="text-forest">sierras, cepilladoras y encoladoras</strong> de última generación para producir bloques que cumplen con los más altos estándares internacionales.
+      </p>
+    </div>
+
+    <!-- Timeline proceso -->
+    <div class="reveal">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1B4332;text-align:center;margin-bottom:2.5rem;">
+        Proceso Productivo
+      </h3>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:flex-start;">
+        <div class="process-step">
+          <div class="process-num">1</div>
+          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Recepción</div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">2</div>
+          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Secado</div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">3</div>
+          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Corte</div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">4</div>
+          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Cepillado</div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">5</div>
+          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Control de Calidad</div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">6</div>
+          <div style="font-size:0.8rem;font-weight:700;color:#1B4332;text-align:center;">Despacho</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PRODUCTOS
+════════════════════════════════════════ -->
+<section id="productos" class="py-24" style="background:#F5E6CA;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+    <div class="text-center mb-14 reveal">
+      <span class="section-tag">Catálogo</span>
+      <div class="section-divider mx-auto"></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;">
+        Nuestros Productos
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+
+      <!-- Card 1 -->
+      <div class="product-card reveal reveal-delay-1">
+        <div style="height:280px;overflow:hidden;">
+          <img src="https://ialawoodsa.wordpress.com/wp-content/uploads/2023/02/productos-5.png"
+               alt="Bloques de Balsa"
+               style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;"
+               onmouseover="this.style.transform='scale(1.06)'"
+               onmouseout="this.style.transform='scale(1)'"
+               onerror="this.parentElement.style.background='linear-gradient(135deg,#1B4332,#2D6A4F)';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.7);font-size:0.9rem;\'>[Foto: Bloques de Balsa]</div>';" />
+        </div>
+        <div class="p-7">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1B4332;margin-bottom:0.75rem;">
+            Bloques de Balsa
+          </h3>
+          <p class="text-dark/65 text-sm leading-relaxed mb-5">
+            Bloques elaborados con balsa de alta calidad que cumplen con los más exigentes estándares internacionales. Disponibles en múltiples dimensiones y densidades.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="tag">#Industrial</span>
+            <span class="tag">#Construcción</span>
+            <span class="tag">#Exportación</span>
+          </div>
+          <a href="#contacto" class="btn-cta block text-center">Solicitar Cotización</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="product-card reveal reveal-delay-2">
+        <div style="height:280px;overflow:hidden;">
+          <img src="https://ialawoodsa.wordpress.com/wp-content/uploads/2023/02/yoga.png"
+               alt="Bloques para Yoga"
+               style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;"
+               onmouseover="this.style.transform='scale(1.06)'"
+               onmouseout="this.style.transform='scale(1)'"
+               onerror="this.parentElement.style.background='linear-gradient(135deg,#2D6A4F,#D4A017)';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.7);font-size:0.9rem;\'>[Foto: Bloques de Yoga]</div>';" />
+        </div>
+        <div class="p-7">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1B4332;margin-bottom:0.75rem;">
+            Bloques para Yoga
+          </h3>
+          <p class="text-dark/65 text-sm leading-relaxed mb-5">
+            Bloques de yoga fabricados con balsa 100% natural. Ofrecen mayor altura, estabilidad y soporte para tu práctica, con el peso pluma que solo la balsa puede dar.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="tag">#Wellness</span>
+            <span class="tag">#Deporte</span>
+            <span class="tag">#Natural</span>
+          </div>
+          <a href="#contacto" class="btn-cta block text-center">Solicitar Cotización</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     HISTORIA / TIMELINE
+════════════════════════════════════════ -->
+<section id="historia" class="py-24 bg-cream">
+  <div class="max-w-5xl mx-auto px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal">
+      <span class="section-tag">Trayectoria</span>
+      <div class="section-divider mx-auto"></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;">
+        Nuestra Historia
+      </h2>
+    </div>
+
+    <div class="timeline-wrapper">
+
+      <!-- 1996 — left -->
+      <div class="timeline-item grid md:grid-cols-2 gap-8 mb-14 reveal">
+        <div class="md:text-right md:pr-12">
+          <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#D4A017;line-height:1;">1996</div>
+          <h4 class="font-bold text-forest mt-1 mb-2">Los Comienzos</h4>
+          <p class="text-dark/65 text-sm leading-relaxed">Los fundadores inician actividades en la industria maderera del Ecuador, acumulando más de 27 años de experiencia y conocimiento del sector.</p>
+        </div>
+        <div class="hidden md:block"></div>
+        <div class="timeline-dot hidden md:block"></div>
+      </div>
+
+      <!-- 2015 — right -->
+      <div class="timeline-item grid md:grid-cols-2 gap-8 mb-14 reveal">
+        <div class="hidden md:block"></div>
+        <div class="md:pl-12">
+          <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#D4A017;line-height:1;">2015</div>
+          <h4 class="font-bold text-forest mt-1 mb-2">Fundación</h4>
+          <p class="text-dark/65 text-sm leading-relaxed">Fundación oficial de Industrias Alawood S.A. en Daule, Guayas. Una nueva empresa con décadas de saber-hacer detrás.</p>
+        </div>
+        <div class="timeline-dot hidden md:block"></div>
+      </div>
+
+      <!-- 2018 — left -->
+      <div class="timeline-item grid md:grid-cols-2 gap-8 mb-14 reveal">
+        <div class="md:text-right md:pr-12">
+          <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#D4A017;line-height:1;">2018</div>
+          <h4 class="font-bold text-forest mt-1 mb-2">Expansión</h4>
+          <p class="text-dark/65 text-sm leading-relaxed">Expansión de instalaciones e incorporación de maquinaria de última generación para satisfacer la creciente demanda internacional.</p>
+        </div>
+        <div class="hidden md:block"></div>
+        <div class="timeline-dot hidden md:block"></div>
+      </div>
+
+      <!-- 2021 — right -->
+      <div class="timeline-item grid md:grid-cols-2 gap-8 mb-14 reveal">
+        <div class="hidden md:block"></div>
+        <div class="md:pl-12">
+          <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#D4A017;line-height:1;">2021</div>
+          <h4 class="font-bold text-forest mt-1 mb-2">Línea Yoga</h4>
+          <p class="text-dark/65 text-sm leading-relaxed">Lanzamiento de la línea de bloques de yoga 100% balsa natural, abriendo nuevos mercados en el sector wellness y deportivo.</p>
+        </div>
+        <div class="timeline-dot hidden md:block"></div>
+      </div>
+
+      <!-- 2023 — left -->
+      <div class="timeline-item grid md:grid-cols-2 gap-8 reveal">
+        <div class="md:text-right md:pr-12">
+          <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#D4A017;line-height:1;">2023</div>
+          <h4 class="font-bold text-forest mt-1 mb-2">Consolidación</h4>
+          <p class="text-dark/65 text-sm leading-relaxed">70+ colaboradores. Consolidación como referente de exportación de balsa ecuatoriana hacia mercados internacionales.</p>
+        </div>
+        <div class="hidden md:block"></div>
+        <div class="timeline-dot hidden md:block"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONTACTO
+════════════════════════════════════════ -->
+<section id="contacto" class="py-24" style="background:#1B4332;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+    <div class="text-center mb-14 reveal">
+      <span style="color:#D4A017;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;">Hablemos</span>
+      <div style="width:48px;height:3px;background:linear-gradient(90deg,#D4A017,rgba(255,255,255,0.2));border-radius:2px;margin:1rem auto 1.5rem;"></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;line-height:1.2;">
+        Contáctenos
+      </h2>
+      <p class="text-white/60 mt-3 text-lg">Estamos listos para atender su requerimiento</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-14">
+
+      <!-- Form -->
+      <div class="reveal">
+        <form id="contact-form" onsubmit="handleSubmit(event)" autocomplete="off">
+          <div class="grid sm:grid-cols-2 gap-5 mb-5">
+            <div>
+              <label class="form-label" for="nombre">Nombre completo</label>
+              <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required />
+            </div>
+            <div>
+              <label class="form-label" for="email">Email</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="correo@empresa.com" required />
+            </div>
+          </div>
+          <div class="mb-5">
+            <label class="form-label" for="empresa">Empresa</label>
+            <input class="form-input" type="text" id="empresa" name="empresa" placeholder="Nombre de su empresa" />
+          </div>
+          <div class="mb-5">
+            <label class="form-label" for="producto">Producto de interés</label>
+            <select class="form-input" id="producto" name="producto">
+              <option value="">Seleccione un producto...</option>
+              <option value="bloques-balsa">Bloques de Balsa</option>
+              <option value="bloques-yoga">Bloques Yoga</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="mb-6">
+            <label class="form-label" for="mensaje">Mensaje</label>
+            <textarea class="form-input" id="mensaje" name="mensaje" rows="4" placeholder="Cuéntenos su requerimiento..." required style="resize:vertical;"></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Enviar Mensaje</button>
+          <div id="success-msg">
+            ✓ ¡Mensaje enviado! Nos pondremos en contacto con usted a la brevedad.
+          </div>
+        </form>
+      </div>
+
+      <!-- Info -->
+      <div class="reveal reveal-delay-2">
+        <div class="mb-8">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:1.5rem;">
+            Información de Contacto
+          </h3>
+
+          <div class="flex items-start gap-4 mb-6">
+            <div style="min-width:36px;height:36px;background:rgba(212,160,23,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="text-white/90 text-sm font-semibold mb-0.5">Dirección</div>
+              <div class="text-white/55 text-sm">Via a Yaguachi Viejo, Cone; Guayas – Guayaquil, Ecuador</div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 mb-6">
+            <div style="min-width:36px;height:36px;background:rgba(212,160,23,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="text-white/90 text-sm font-semibold mb-0.5">Email</div>
+              <a href="mailto:elozano@alawoodsa.com" class="text-white/55 text-sm hover:text-gold transition-colors">elozano@alawoodsa.com</a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 mb-8">
+            <div style="min-width:36px;height:36px;background:rgba(212,160,23,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="text-white/90 text-sm font-semibold mb-0.5">Teléfono</div>
+              <a href="tel:+593985041938" class="text-white/55 text-sm hover:text-gold transition-colors">+593 985 041 938</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div style="border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+          <iframe
+            title="Ubicación Alawood S.A."
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.2!2d-79.9859!3d-1.8660!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwNTEnNTcuNiJTIDc5wrA1OSc0OS4yIlc!5e0!3m2!1ses!2sec!4v1700000000000"
+            width="100%"
+            height="230"
+            style="border:0;display:block;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer style="background:#0D2B1F;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <div class="grid md:grid-cols-3 gap-12 mb-12">
+
+      <!-- Brand -->
+      <div>
+        <div class="mb-3">
+          <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#fff;letter-spacing:0.08em;line-height:1;">ALAWOOD</div>
+          <div style="font-size:0.6rem;letter-spacing:0.22em;color:#D4A017;text-transform:uppercase;font-weight:600;">Industrias S.A.</div>
+        </div>
+        <p class="text-white/45 text-sm leading-relaxed mt-4">
+          Líderes en aserrado y conservación de madera de balsa en Ecuador. Calidad, sostenibilidad y experiencia al servicio del mundo.
+        </p>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-5 tracking-widest uppercase">Navegación</h4>
+        <ul class="space-y-3">
+          <li><a href="#nosotros"  class="text-white/45 text-sm hover:text-gold transition-colors">Nosotros</a></li>
+          <li><a href="#fabrica"   class="text-white/45 text-sm hover:text-gold transition-colors">Fábrica</a></li>
+          <li><a href="#productos" class="text-white/45 text-sm hover:text-gold transition-colors">Productos</a></li>
+          <li><a href="#historia"  class="text-white/45 text-sm hover:text-gold transition-colors">Historia</a></li>
+          <li><a href="#contacto"  class="text-white/45 text-sm hover:text-gold transition-colors">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-5 tracking-widest uppercase">Contacto</h4>
+        <ul class="space-y-3">
+          <li class="text-white/45 text-sm">Via a Yaguachi Viejo, Cone<br/>Guayas – Guayaquil, Ecuador</li>
+          <li><a href="mailto:elozano@alawoodsa.com" class="text-white/45 text-sm hover:text-gold transition-colors">elozano@alawoodsa.com</a></li>
+          <li><a href="tel:+593985041938" class="text-white/45 text-sm hover:text-gold transition-colors">+593 985 041 938</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:2rem;text-align:center;">
+      <p class="text-white/30 text-xs">
+        © 2024 Industrias Alawood S.A. | Daule, Guayas, Ecuador | Todos los derechos reservados
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+<script>
+  /* ── Custom cursor ─────────────────── */
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .feature-card, .product-card, .value-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+  });
+
+  /* ── Navbar scroll ─────────────────── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  /* ── Hamburger menu ────────────────── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+
+  /* ── Scroll reveal ─────────────────── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ── Counter animation ─────────────── */
+  let countersStarted = false;
+
+  function animateCounter(el) {
+    const target  = parseInt(el.dataset.target, 10);
+    const suffix  = el.dataset.suffix || '';
+    const duration = 1800;
+    const steps   = 60;
+    const step    = target / steps;
+    let current   = 0;
+    let frame     = 0;
+
+    const timer = setInterval(() => {
+      frame++;
+      current = Math.min(Math.round(step * frame), target);
+      el.textContent = current + suffix;
+      if (current >= target) clearInterval(timer);
+    }, duration / steps);
+  }
+
+  const statsSection = document.querySelector('.stat-number');
+  if (statsSection) {
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countersStarted) {
+          countersStarted = true;
+          document.querySelectorAll('.stat-number').forEach(animateCounter);
+        }
+      });
+    }, { threshold: 0.5 });
+    statsObserver.observe(statsSection);
+  }
+
+  /* ── Parallax hero ─────────────────── */
+  const heroParallax = document.querySelector('.hero-parallax');
+  if (heroParallax) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) {
+        heroParallax.style.transform = `translateY(${y * 0.18}px)`;
+      }
+    }, { passive: true });
+  }
+
+  /* ── Contact form ──────────────────── */
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      document.getElementById('success-msg').style.display = 'block';
+      btn.textContent = 'Enviar Mensaje';
+      btn.disabled = false;
+      e.target.reset();
+      setTimeout(() => {
+        document.getElementById('success-msg').style.display = 'none';
+      }, 5000);
+    }, 900);
+  }
+
+  /* ── Smooth scroll for anchors ─────── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
