@@ -333,16 +333,42 @@
       box-shadow: 0 8px 24px rgba(212,160,23,0.35);
     }
 
-    /* ── Success message ─────────────────────── */
-    #success-msg {
+    /* ── Success overlay (post-Formspree redirect) ─── */
+    #success-overlay {
       display: none;
-      background: #2D6A4F;
-      color: #fff;
-      border-radius: 10px;
-      padding: 1rem 1.5rem;
-      margin-top: 1rem;
-      font-size: 0.95rem;
-      font-weight: 500;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(13,43,31,0.92);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+      padding: 2rem;
+    }
+    #success-overlay.show { display: flex; animation: fadeInBody 0.5s ease forwards; }
+    #success-overlay .so-icon { font-size: 3.5rem; line-height: 1; }
+    #success-overlay .so-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #D4A017;
+    }
+    #success-overlay .so-msg { color: rgba(255,255,255,0.75); font-size: 1rem; max-width: 380px; line-height: 1.6; }
+    #success-overlay .so-bar {
+      width: 200px; height: 4px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    #success-overlay .so-bar-fill {
+      height: 100%;
+      background: #D4A017;
+      border-radius: 2px;
+      width: 0;
+      transition: width 4s linear;
     }
 
     /* ── Tag chips ────────────────────────────── */
@@ -1052,11 +1078,20 @@
 
       <!-- Form -->
       <div class="reveal">
-        <form id="contact-form" onsubmit="handleSubmit(event)" autocomplete="off">
+        <form id="contact-form"
+              action="https://formspree.io/f/xojkjryp"
+              method="POST"
+              autocomplete="off">
+
+          <!-- Hidden fields -->
+          <input type="hidden" name="_subject"  value="Nueva cotización desde ialawood.com" />
+          <input type="hidden" name="_next"     value="https://ialawood.com?success=true" />
+          <input type="hidden" name="_language" id="form-language" value="es" />
+
           <div class="grid sm:grid-cols-2 gap-5 mb-5">
             <div>
               <label class="form-label" for="nombre" data-i18n="contact.label.nombre">Nombre completo</label>
-              <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Juan Pérez" data-i18n-placeholder="contact.ph.nombre" required />
+              <input class="form-input" type="text" id="nombre" name="name" placeholder="Juan Pérez" data-i18n-placeholder="contact.ph.nombre" required />
             </div>
             <div>
               <label class="form-label" for="email">Email</label>
@@ -1065,11 +1100,11 @@
           </div>
           <div class="mb-5">
             <label class="form-label" for="empresa" data-i18n="contact.label.empresa">Empresa</label>
-            <input class="form-input" type="text" id="empresa" name="empresa" placeholder="Nombre de su empresa" data-i18n-placeholder="contact.ph.empresa" />
+            <input class="form-input" type="text" id="empresa" name="company" placeholder="Nombre de su empresa" data-i18n-placeholder="contact.ph.empresa" />
           </div>
           <div class="mb-5">
             <label class="form-label" for="producto" data-i18n="contact.label.producto">Producto de interés</label>
-            <select class="form-input" id="producto" name="producto">
+            <select class="form-input" id="producto" name="product">
               <option value="" data-i18n="contact.select.default">Seleccione un producto...</option>
               <option value="bloques-balsa" data-i18n="contact.select.balsa">Bloques de Balsa</option>
               <option value="bloques-yoga" data-i18n="contact.select.yoga">Bloques Yoga</option>
@@ -1078,12 +1113,9 @@
           </div>
           <div class="mb-6">
             <label class="form-label" for="mensaje" data-i18n="contact.label.mensaje">Mensaje</label>
-            <textarea class="form-input" id="mensaje" name="mensaje" rows="4" placeholder="Cuéntenos su requerimiento..." data-i18n-placeholder="contact.ph.mensaje" required style="resize:vertical;"></textarea>
+            <textarea class="form-input" id="mensaje" name="message" rows="4" placeholder="Cuéntenos su requerimiento..." data-i18n-placeholder="contact.ph.mensaje" required style="resize:vertical;"></textarea>
           </div>
           <button type="submit" class="btn-primary" data-i18n="contact.btn">Enviar Mensaje</button>
-          <div id="success-msg">
-            ✓ ¡Mensaje enviado! Nos pondremos en contacto con usted a la brevedad.
-          </div>
         </form>
       </div>
 
@@ -1193,6 +1225,16 @@
     </div>
   </div>
 </footer>
+
+<!-- ══════════════════════════════════════
+     SUCCESS OVERLAY (after Formspree redirect)
+════════════════════════════════════════ -->
+<div id="success-overlay" role="status" aria-live="polite">
+  <div class="so-icon">✅</div>
+  <div class="so-title" id="so-title">¡Mensaje enviado!</div>
+  <p class="so-msg" id="so-msg">Gracias por contactarnos. Nos pondremos en contacto con usted a la brevedad.</p>
+  <div class="so-bar"><div class="so-bar-fill" id="so-bar-fill"></div></div>
+</div>
 
 <!-- ══════════════════════════════════════
      JAVASCRIPT
@@ -1484,6 +1526,7 @@
     setTimeout(() => {
       applyTranslations(lang);
       updateToggleButtons(lang);
+      syncFormLanguage(lang);
       localStorage.setItem('alawood-lang', lang);
       /* fade back in */
       document.body.classList.remove('lang-transition');
@@ -1581,23 +1624,45 @@
     }, { passive: true });
   }
 
-  /* ── Contact form ──────────────────── */
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button[type="submit"]');
-    const t   = translations[currentLang];
-    btn.textContent = t['contact.sending'];
-    btn.disabled = true;
+  /* ── ?success=true redirect handler ── */
+  (function checkSuccess() {
+    if (!new URLSearchParams(window.location.search).has('success')) return;
 
+    /* strip the query param from the URL bar immediately */
+    history.replaceState(null, '', window.location.pathname);
+
+    const overlay  = document.getElementById('success-overlay');
+    const title    = document.getElementById('so-title');
+    const msg      = document.getElementById('so-msg');
+    const barFill  = document.getElementById('so-bar-fill');
+    const lang     = localStorage.getItem('alawood-lang') || 'es';
+
+    title.textContent = lang === 'en'
+      ? 'Message sent!'
+      : '¡Mensaje enviado!';
+    msg.textContent = lang === 'en'
+      ? 'Thank you for reaching out. We will get back to you shortly.'
+      : 'Gracias por contactarnos. Nos pondremos en contacto con usted a la brevedad.';
+
+    overlay.classList.add('show');
+    /* trigger progress bar after a frame so transition fires */
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      barFill.style.width = '100%';
+    }));
+    /* scroll to contact section */
+    const contactEl = document.getElementById('contacto');
+    if (contactEl) contactEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    /* redirect to home after 4 seconds */
     setTimeout(() => {
-      const msg = document.getElementById('success-msg');
-      msg.textContent = t['contact.success'];
-      msg.style.display = 'block';
-      btn.textContent = t['contact.btn'];
-      btn.disabled = false;
-      e.target.reset();
-      setTimeout(() => { msg.style.display = 'none'; }, 5000);
-    }, 900);
+      overlay.classList.remove('show');
+    }, 4000);
+  })();
+
+  /* ── Keep _language hidden field in sync ── */
+  function syncFormLanguage(lang) {
+    const field = document.getElementById('form-language');
+    if (field) field.value = lang;
   }
 
   /* ── Smooth scroll for anchors ─────── */
@@ -1618,6 +1683,7 @@
       currentLang = saved;
       applyTranslations(saved);
       updateToggleButtons(saved);
+      syncFormLanguage(saved);
     }
   })();
 </script>
