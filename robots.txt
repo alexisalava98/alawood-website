@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ialawood.com/sitemap.xml
