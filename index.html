@@ -38,6 +38,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -543,6 +544,15 @@
       opacity: 0.82;
       transition: opacity 0.15s ease;
     }
+
+    /* ── Chinese font override ────────────────── */
+    html[lang="zh"] body,
+    html[lang="zh"] h1, html[lang="zh"] h2, html[lang="zh"] h3, html[lang="zh"] h4,
+    html[lang="zh"] p, html[lang="zh"] a, html[lang="zh"] button,
+    html[lang="zh"] label, html[lang="zh"] option, html[lang="zh"] span,
+    html[lang="zh"] [data-i18n], html[lang="zh"] [data-i18n-html] {
+      font-family: 'Noto Sans SC', 'Inter', sans-serif;
+    }
   </style>
 
   <!-- Vercel Analytics -->
@@ -626,6 +636,8 @@
           <button class="lang-btn active" id="btn-es-desktop" onclick="setLanguage('es')">🇪🇨 ES</button>
           <div class="lang-sep"></div>
           <button class="lang-btn" id="btn-en-desktop" onclick="setLanguage('en')">🇺🇸 EN</button>
+          <div class="lang-sep"></div>
+          <button class="lang-btn" id="btn-zh-desktop" onclick="setLanguage('zh')">🇨🇳 ZH</button>
         </div>
         <a href="#contacto" class="btn-cta" data-i18n="nav.cotizar">Cotizar</a>
       </div>
@@ -650,6 +662,8 @@
         <button class="lang-btn active" id="btn-es-mobile" onclick="setLanguage('es')">🇪🇨 ES</button>
         <div class="lang-sep"></div>
         <button class="lang-btn" id="btn-en-mobile" onclick="setLanguage('en')">🇺🇸 EN</button>
+        <div class="lang-sep"></div>
+        <button class="lang-btn" id="btn-zh-mobile" onclick="setLanguage('zh')">🇨🇳 ZH</button>
       </div>
       <a href="#contacto" class="btn-cta inline-block text-center" data-i18n="nav.cotizar" onclick="closeMobile()">Cotizar</a>
     </div>
@@ -1565,6 +1579,123 @@
       'footer.nav.historia':  'History',
       'footer.nav.contacto':  'Contact',
       'footer.copyright':     '© 2024 Industrias Alawood S.A. | Daule, Guayas, Ecuador | All rights reserved',
+    },
+    zh: {
+      /* NAVBAR */
+      'nav.nosotros': '关于我们',
+      'nav.fabrica':  '工厂',
+      'nav.productos':'产品',
+      'nav.historia': '历史',
+      'nav.contacto': '联系我们',
+      'nav.cotizar':  '获取报价',
+      /* HERO */
+      'hero.badge':    '厄瓜多尔 · 瓜亚斯 · 优质轻木',
+      'hero.h1':       '厄瓜多尔出产，<br /><em style="color:#D4A017;">世界最轻</em>木材',
+      'hero.subtitle': '27年经验，70名员工，高密度轻木质量认证',
+      'hero.cta1':     '查看产品',
+      'hero.cta2':     '参观工厂',
+      'hero.stat1':    '年',
+      'hero.stat2':    '员工',
+      'hero.stat3':    '100% 厄瓜多尔轻木',
+      /* NOSOTROS */
+      'about.tag':        '关于我们',
+      'about.h2':         '关于我们',
+      'about.p1':         'Alawood S.A.成立于2015年，总部位于瓜亚斯省道莱市。我们专注于轻木的锯材和保存，轻木因其<strong class="text-forest-mid">卓越的强重比</strong>而成为世界上最受重视的木材之一。',
+      'about.p2':         '我们拥有70余名致力于质量和可持续发展的员工，将厄瓜多尔最优质的产品带向世界。',
+      'about.val1.title': '质量',
+      'about.val1.desc':  '每道工序均符合国际标准',
+      'about.val2.title': '可持续性',
+      'about.val2.desc':  '致力于保护环境',
+      'about.val3.title': '经验',
+      'about.val3.desc':  '27年木材行业经验',
+      'about.val4.title': '创新',
+      'about.val4.desc':  '每个环节采用尖端技术',
+      /* BENEFICIOS */
+      'benefits.supertitle':   '优质材料',
+      'benefits.h2':           '为什么选择轻木？',
+      'benefits.subtitle':     '独特的性能使其成为全球最苛刻工业领域的首选材料。',
+      'benefits.card1.title':  '超轻重量',
+      'benefits.card1.desc':   '世界上最轻的木材，非常适合航空航天、船舶和运动领域的应用。',
+      'benefits.card2.title':  '高强度',
+      'benefits.card2.desc':   '强重比优于地球上任何其他热带木材。',
+      'benefits.card3.title':  '优质绝缘体',
+      'benefits.card3.desc':   '卓越的热学和声学性能，适用于建筑和工业应用。',
+      'benefits.card4.title':  '100%可再生',
+      'benefits.card4.desc':   '速生树种，高度可持续，碳足迹低。',
+      'benefits.card5.title':  '用途广泛',
+      'benefits.card5.desc':   '广泛应用于建筑、体育、航空、船舶和艺术领域。',
+      'benefits.card6.title':  '厄瓜多尔原产',
+      'benefits.card6.desc':   '厄瓜多尔是世界最大的轻木生产国，品质源自产地。',
+      /* FÁBRICA */
+      'factory.tag':           '生产设施',
+      'factory.h2':            '我们的工厂',
+      'factory.subtitle':      '位于瓜亚斯腹地，配备先进技术的现代化设施',
+      'factory.area1':         '原材料接收',
+      'factory.area2':         '工业锯',
+      'factory.area3':         '刨床',
+      'factory.area4':         '质量控制',
+      'factory.desc':          '我们拥有宽阔的木材接收和干燥场地。工厂配备最新一代<strong class="text-forest">工业锯、刨床和胶合机</strong>，生产符合最高国际标准的木块产品。',
+      'factory.process.title': '生产流程',
+      'factory.step1':         '接收',
+      'factory.step2':         '干燥',
+      'factory.step3':         '切割',
+      'factory.step4':         '刨削',
+      'factory.step5':         '质量控制',
+      'factory.step6':         '发货',
+      /* PRODUCTOS */
+      'products.tag':         '产品目录',
+      'products.h2':          '我们的产品',
+      'products.card1.title': 'R8/AAA轻木块',
+      'products.card1.desc':  '我们市场上品质最高的轻木块高端系列。R8/AAA等级认证保证密度均匀、表面精良，并符合最严格的国际出口标准。',
+      'products.card2.title': 'AF轻木块',
+      'products.card2.desc':  'AF等级轻木块，适用于需要高性能且成本更具竞争力的应用场景。保留了厄瓜多尔轻木的天然特性。',
+      'products.cta':         '申请报价',
+      /* HISTORIA */
+      'history.tag':       '发展历程',
+      'history.h2':        '我们的历史',
+      'history.e1.title':  '创业之初',
+      'history.e1.desc':   '创始人开始投身厄瓜多尔木材行业，积累了27余年的从业经验与行业知识。',
+      'history.e2.title':  '公司成立',
+      'history.e2.desc':   'Industrias Alawood S.A.在瓜亚斯省道莱市正式成立，以数十年专业积累为基础开启新篇章。',
+      'history.e3.title':  '扩张发展',
+      'history.e3.desc':   '扩建生产设施，引进最新一代机械设备，以满足不断增长的国际市场需求。',
+      'history.e4.title':  '快速增长',
+      'history.e4.desc':   '历史性里程碑：向亚洲市场出口超过100个集装箱，使Alawood成为厄瓜多尔轻木的国际标杆企业。',
+      'history.e5.title':  '市场巩固',
+      'history.e5.desc':   '员工超过70人，作为厄瓜多尔轻木出口标杆企业在国际市场进一步巩固地位。',
+      'history.e6.title':  '现代化升级',
+      'history.e6.desc':   '工厂现代化改造：引进4台以上最新技术机器，并采购新型工业锅炉，优化干燥工艺，将生产能力提升至新高度。',
+      /* CONTACTO */
+      'contact.supertitle':    '联系我们',
+      'contact.h2':            '联系我们',
+      'contact.subtitle':      '我们随时准备满足您的需求',
+      'contact.label.nombre':  '全名',
+      'contact.label.empresa': '公司',
+      'contact.label.producto':'感兴趣的产品',
+      'contact.label.mensaje': '留言',
+      'contact.ph.nombre':     '张伟',
+      'contact.ph.empresa':    '您的公司名称',
+      'contact.ph.mensaje':    '请告诉我们您的需求...',
+      'contact.select.default':'请选择产品...',
+      'contact.select.r8aaa':  'R8/AAA轻木块',
+      'contact.select.af':     'AF轻木块',
+      'contact.select.otro':   '其他',
+      'contact.btn':           '发送消息',
+      'contact.sending':       '发送中...',
+      'contact.success':       '✓ 消息已发送！我们将尽快与您联系。',
+      'contact.info.title':    '联系信息',
+      'contact.info.address':  '地址',
+      'contact.info.phone':    '电话',
+      /* FOOTER */
+      'footer.desc':          '厄瓜多尔轻木锯材与保存领域的领军企业，以质量、可持续性和经验服务全球。',
+      'footer.nav.title':     '导航',
+      'footer.contact.title': '联系方式',
+      'footer.nav.nosotros':  '关于我们',
+      'footer.nav.fabrica':   '工厂',
+      'footer.nav.productos': '产品',
+      'footer.nav.historia':  '历史',
+      'footer.nav.contacto':  '联系我们',
+      'footer.copyright':     '© 2024 Industrias Alawood S.A. | 厄瓜多尔瓜亚斯省道莱市 | 版权所有',
     }
   };
 
@@ -1577,14 +1708,10 @@
     ['desktop', 'mobile'].forEach(scope => {
       const btnEs = document.getElementById('btn-es-' + scope);
       const btnEn = document.getElementById('btn-en-' + scope);
-      if (!btnEs || !btnEn) return;
-      if (lang === 'es') {
-        btnEs.classList.add('active');
-        btnEn.classList.remove('active');
-      } else {
-        btnEn.classList.add('active');
-        btnEs.classList.remove('active');
-      }
+      const btnZh = document.getElementById('btn-zh-' + scope);
+      [btnEs, btnEn, btnZh].forEach(btn => { if (btn) btn.classList.remove('active'); });
+      const active = document.getElementById('btn-' + lang + '-' + scope);
+      if (active) active.classList.add('active');
     });
   }
 
@@ -1731,9 +1858,13 @@
 
     title.textContent = lang === 'en'
       ? 'Message sent!'
+      : lang === 'zh'
+      ? '消息已发送！'
       : '¡Mensaje enviado!';
     msg.textContent = lang === 'en'
       ? 'Thank you for reaching out. We will get back to you shortly.'
+      : lang === 'zh'
+      ? '感谢您的联系，我们将尽快与您回复。'
       : 'Gracias por contactarnos. Nos pondremos en contacto con usted a la brevedad.';
 
     overlay.classList.add('show');
