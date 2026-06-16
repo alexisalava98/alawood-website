@@ -641,6 +641,7 @@
       <!-- Desktop nav -->
       <div class="hidden md:flex items-center gap-8">
         <a href="#nosotros"  class="nav-link" data-i18n="nav.nosotros">Nosotros</a>
+        <a href="#ambiental" class="nav-link" data-i18n="nav.ambiental">Ambiental</a>
         <a href="#fabrica"   class="nav-link" data-i18n="nav.fabrica">Fábrica</a>
         <a href="#productos" class="nav-link" data-i18n="nav.productos">Productos</a>
         <a href="#historia"  class="nav-link" data-i18n="nav.historia">Historia</a>
@@ -666,7 +667,8 @@
   <!-- Mobile menu -->
   <div id="mobile-menu" class="md:hidden bg-forest">
     <div class="px-6 py-4 flex flex-col gap-4">
-      <a href="#nosotros"  class="nav-link" data-i18n="nav.nosotros" onclick="closeMobile()">Nosotros</a>
+      <a href="#nosotros"  class="nav-link" data-i18n="nav.nosotros"  onclick="closeMobile()">Nosotros</a>
+      <a href="#ambiental" class="nav-link" data-i18n="nav.ambiental" onclick="closeMobile()">Ambiental</a>
       <a href="#fabrica"   class="nav-link" data-i18n="nav.fabrica"   onclick="closeMobile()">Fábrica</a>
       <a href="#productos" class="nav-link" data-i18n="nav.productos" onclick="closeMobile()">Productos</a>
       <a href="#historia"  class="nav-link" data-i18n="nav.historia"  onclick="closeMobile()">Historia</a>
@@ -918,6 +920,52 @@
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     COMPROMISO AMBIENTAL
+════════════════════════════════════════ -->
+<section id="ambiental" class="py-24" style="background:#F5E6CA;">
+  <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+
+    <!-- Icon badge -->
+    <div class="reveal flex justify-center mb-10">
+      <div style="width:104px;height:104px;background:linear-gradient(135deg,#1B4332 0%,#2D6A4F 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 56px rgba(27,67,50,0.28);">
+        <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 8C8 10 5.9 16.17 3.82 19.82a2.93 2.93 0 002.18.18c1.5-5.5 7-7 7-7-1 1.5-2.5 6-2.5 6A14 14 0 0021 12.93C21 9.6 19.5 8 17 8z"/>
+          <path d="M12 22V14"/>
+          <path d="M9 17l3 3 3-3"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Text block -->
+    <div class="reveal reveal-delay-1">
+      <span class="section-tag" data-i18n="env.tag">Sostenibilidad</span>
+      <div class="section-divider mx-auto"></div>
+      <h2 data-i18n="env.h2" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#1B4332;line-height:1.2;margin-bottom:1.5rem;">
+        Compromiso Ambiental
+      </h2>
+      <p class="text-dark/70 leading-relaxed text-lg max-w-2xl mx-auto mb-10" data-i18n="env.desc">
+        Contamos con un estudio de impacto ambiental certificado que garantiza que nuestras operaciones cumplen con los más altos estándares de sostenibilidad y responsabilidad con el entorno.
+      </p>
+      <a href="https://raw.githubusercontent.com/alexisalava98/alawood-website/main/estudio-ambiental.pdf"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn-cta text-base px-8 py-3"
+         style="display:inline-flex;align-items:center;gap:0.55rem;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+        <span data-i18n="env.cta">Ver Estudio Ambiental</span>
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -1378,12 +1426,13 @@
   const translations = {
     es: {
       /* NAVBAR */
-      'nav.nosotros': 'Nosotros',
-      'nav.fabrica':  'Fábrica',
-      'nav.productos':'Productos',
-      'nav.historia': 'Historia',
-      'nav.contacto': 'Contacto',
-      'nav.cotizar':  'Cotizar',
+      'nav.nosotros':  'Nosotros',
+      'nav.ambiental': 'Ambiental',
+      'nav.fabrica':   'Fábrica',
+      'nav.productos': 'Productos',
+      'nav.historia':  'Historia',
+      'nav.contacto':  'Contacto',
+      'nav.cotizar':   'Cotizar',
       /* HERO */
       'hero.badge':    'Ecuador · Guayas · Balsa Premium',
       'hero.h1':       'La Madera Más<br /><em style="color:#D4A017;">Liviana</em> del Mundo,<br />Desde Ecuador',
@@ -1491,17 +1540,23 @@
       'footer.nav.productos': 'Productos',
       'footer.nav.historia':  'Historia',
       'footer.nav.contacto':  'Contacto',
+      /* AMBIENTAL */
+      'env.tag':  'Sostenibilidad',
+      'env.h2':   'Compromiso Ambiental',
+      'env.desc': 'Contamos con un estudio de impacto ambiental certificado que garantiza que nuestras operaciones cumplen con los más altos estándares de sostenibilidad y responsabilidad con el entorno.',
+      'env.cta':  'Ver Estudio Ambiental',
       'footer.estudio':        'Estudio Ambiental',
       'footer.copyright':     '© 2024 Industrias Alawood S.A. | Daule, Guayas, Ecuador | Todos los derechos reservados',
     },
     en: {
       /* NAVBAR */
-      'nav.nosotros': 'About Us',
-      'nav.fabrica':  'Factory',
-      'nav.productos':'Products',
-      'nav.historia': 'History',
-      'nav.contacto': 'Contact',
-      'nav.cotizar':  'Get a Quote',
+      'nav.nosotros':  'About Us',
+      'nav.ambiental': 'Environmental',
+      'nav.fabrica':   'Factory',
+      'nav.productos': 'Products',
+      'nav.historia':  'History',
+      'nav.contacto':  'Contact',
+      'nav.cotizar':   'Get a Quote',
       /* HERO */
       'hero.badge':    'Ecuador · Guayas · Premium Balsa',
       'hero.h1':       'The World\'s<br /><em style="color:#D4A017;">Lightest</em> Wood,<br />From Ecuador',
@@ -1609,17 +1664,23 @@
       'footer.nav.productos': 'Products',
       'footer.nav.historia':  'History',
       'footer.nav.contacto':  'Contact',
+      /* AMBIENTAL */
+      'env.tag':  'Sustainability',
+      'env.h2':   'Environmental Commitment',
+      'env.desc': 'We have a certified environmental impact study that guarantees our operations comply with the highest standards of sustainability and environmental responsibility.',
+      'env.cta':  'View Environmental Study',
       'footer.estudio':        'Environmental Study',
       'footer.copyright':     '© 2024 Industrias Alawood S.A. | Daule, Guayas, Ecuador | All rights reserved',
     },
     zh: {
       /* NAVBAR */
-      'nav.nosotros': '关于我们',
-      'nav.fabrica':  '工厂',
-      'nav.productos':'产品',
-      'nav.historia': '历史',
-      'nav.contacto': '联系我们',
-      'nav.cotizar':  '获取报价',
+      'nav.nosotros':  '关于我们',
+      'nav.ambiental': '环保',
+      'nav.fabrica':   '工厂',
+      'nav.productos': '产品',
+      'nav.historia':  '历史',
+      'nav.contacto':  '联系我们',
+      'nav.cotizar':   '获取报价',
       /* HERO */
       'hero.badge':    '厄瓜多尔 · 瓜亚斯 · 优质轻木',
       'hero.h1':       '厄瓜多尔出产，<br /><em style="color:#D4A017;">世界最轻</em>木材',
@@ -1727,6 +1788,11 @@
       'footer.nav.productos': '产品',
       'footer.nav.historia':  '历史',
       'footer.nav.contacto':  '联系我们',
+      /* AMBIENTAL */
+      'env.tag':  '可持续发展',
+      'env.h2':   '环境承诺',
+      'env.desc': '我们拥有经认证的环境影响评估报告，确保我们的运营符合最高的可持续发展和环境责任标准。',
+      'env.cta':  '查看环境研究报告',
       'footer.estudio':        '环境研究报告',
       'footer.copyright':     '© 2024 Industrias Alawood S.A. | 厄瓜多尔瓜亚斯省道莱市 | 版权所有',
     }
